@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yönetici</title>
+</head>
+<body>
+    <h1>Yönetici Sayfası</h1>
+    
+    <form id="myForm" method="POST" action="/" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div>
+            <div class="custom-file">
+                <label class="custom-file-label" for="imageInput">ISBN Fotoğrafı Yükle</label>
+                <input type="file" name="book" class="custom-file-input" id="imageInput" aria-describedby="inputGroupFileAddon01">
+              <label for="booknameField">Kitap Adı</label>
+    	      <input type="text" name="bookname" id="booknameField">
+              <button type="submit">Kitap Ekle</button>
+            </div>
+          </div>
+    	<!--<label for="bookName">ISBN Numarası</label>-->
+    </form>
+</body>
+</html>
