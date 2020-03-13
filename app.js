@@ -1,6 +1,8 @@
 const express = require("express");
 const path = require("path");
 const fileUpload = require("express-fileupload");
+//const { createWorker } = require('tesseract.js');
+//const worker = createWorker();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -32,6 +34,19 @@ app.post('/', (req, res) => {
 });
 
 /*
+(async () => {
+  await worker.load();
+  await worker.loadLanguage('eng');
+  await worker.initialize('eng');
+  const { data: { text } } = await worker.recognize('sample-isbn-9781782808084.jpg');
+  //console.log(text);
+  temporaryText = text.split("\n")[0];
+  var text2 = temporaryText.replace("ISBN ","");
+  temporaryText = text2.replace(/-/g,"");
+  console.log(temporaryText);
+  await worker.terminate();
+})();
+
 app.use('/submit-form', (req, res) => {
 	const bookName = req.body.bookname;
 	console.log(bookName);
