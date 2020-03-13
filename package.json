@@ -1,0 +1,29 @@
+{
+  "name": "yazlab",
+  "version": "1.0.0",
+  "description": "YazLab 2 Proje 1",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "keywords": [
+    "kutuphane",
+    "kitap",
+    "yonetici",
+    "kullanici",
+    "isbn"
+  ],
+  "author": "no one",
+  "license": "MIT",
+  "dependencies": {
+    "add": "^2.0.6",
+    "express": "^4.17.1",
+    "express-fileupload": "^1.1.6",
+    "tesseract.js": "^2.0.2",
+    "yarn": "^1.22.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
+}
