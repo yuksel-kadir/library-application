@@ -5,20 +5,30 @@ const fileUpload = require("express-fileupload");
 //const worker = createWorker();
 const app = express();
 const PORT = process.env.PORT || 5000;
+const address = path.join(__dirname, "public/");
 
 //app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({extended:false}));
+//app.use(express.urlencoded({extended:false}));
 app.use(fileUpload());
 
-app.get('/admin.html', (req, res) =>{
-	res.sendFile(path.join(__dirname, 'public', 'admin.html'));
+app.get('/admin', (req, res) =>{
+	res.sendFile(address + 'admin.html');
 });
 
-app.post('/', (req, res) => {
+app.get('/user', (req, res) =>{
+	res.sendFile(address + 'congrat.html');
+});
+
+app.post('/admin', (req, res) => {
+	//Kitap adı bookname'de saklanıyor. Kitap resmi bookImage objesinde saklanıyor.
 	var bookName = req.body.bookname;
-	var imageFile = req.files.book;
-	imageFile.name = bookName+".png";
-	console.log(req.files.book.name);
+	var imageFile = req.files.bookImage;
+
+	console.log("POST ile gönderilen resmin adı: "+imageFile.name);
+	console.log("POST ile gönderilen resmin objesi: " + imageFile);
+	console.log("POST ile gönderilen kitap ismi: " + bookName);
+	//console.log(req.body);
+	//console.log(req.files);
 	
 	imageFile.mv("./isbnPictures/" + imageFile.name, function(error){
 		if(error){
@@ -28,9 +38,7 @@ app.post('/', (req, res) => {
 			console.log("Image file successfully uploaded!");
 		}
 	});
-	console.log(req.body.bookname);
-	res.sendFile(path.join(__dirname, 'public', 'user.html'));
-	//res.send(alert("OK"));
+	res.redirect("/user");
 });
 
 /*
