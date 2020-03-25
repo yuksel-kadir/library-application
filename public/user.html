@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Girişi</title>
+</head>
+<body>
+    <h1>Kullanıcı Giriş Sayfası</h1>
+    <form id="userIsbnUploadForm" method="POST" action="/user" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+            </div>
+            <div class="custom-file">
+                <label class="custom-file-label" for="imageInput">ISBN Fotoğrafı Yükle</label>
+                <input type="file" name="isbnImage" class="custom-file-input" id="imageInput" aria-describedby="inputGroupFileAddon01">
+              <!--<label for="booknameField">Kitap ISBN Fotoğrafı</label>-->
+    	      <!--<input type="text" name="bookname" id="booknameField">-->
+              <button type="submit">Kitap Ara</button>
+            </div>
+          </div>
+    	<!--<label for="bookName">ISBN Numarası</label>-->
+    </form>
+</body>
+</html>
