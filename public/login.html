@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giriş Sayfası</title>
+</head>
+
+<body>
+    <form id="loginPage" method="POST" action="/login" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="inputGroupFileAddon01">Kütüphane Sistemine Giriş</span>
+            </div>
+            <div class="custom-file">
+                <label class="custom-file-label" for="imageInput">Kullanıcı Adı</label>
+                <input type="text" name="username" class="custom-file-input" id="username"
+                    aria-describedby="inputGroupFileAddon01" required>
+                <label for="booknameField">Şifre</label>
+                <input type="password" id="password" name="password" id="booknameField" required>
+                <input type="checkbox" onclick="foo()">Parolayı Göster
+                <button type="submit">Giriş</button>
+            </div>
+        </div>
+        <!--<label for="bookName">ISBN Numarası</label>-->
+    </form>
+    <script>
+        function foo() {
+            var x = document.getElementById("password");
+            if (x.type == "password") {
+                x.type = "text";
+            } else {
+                x.type = "password";
+            }
+        }
+    </script>
+</body>
+
+</html>

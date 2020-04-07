@@ -3,24 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullanıcı Girişi</title>
+    <title>Kullanıcı Sayfası</title>
 </head>
 <body>
     <h1>Kullanıcı Giriş Sayfası</h1>
-    <form id="userIsbnUploadForm" method="POST" action="/user" enctype="multipart/form-data">
+    <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
         <div class="input-group mb-3">
-            <div class="input-group-prepend">
-              <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
-            </div>
             <div class="custom-file">
-                <label class="custom-file-label" for="imageInput">ISBN Fotoğrafı Yükle</label>
-                <input type="file" name="isbnImage" class="custom-file-input" id="imageInput" aria-describedby="inputGroupFileAddon01">
-              <!--<label for="booknameField">Kitap ISBN Fotoğrafı</label>-->
-    	      <!--<input type="text" name="bookname" id="booknameField">-->
-              <button type="submit">Kitap Ara</button>
+              <label for="booknameField">Kitap ISBN'si veya kitap adı girin:</label>
+    	      <input type="text" name="queryvar" id="bookSearchField" required>
+              <button id="submitButton" type="submit">Kitap Ara</button>
             </div>
           </div>
-    	<!--<label for="bookName">ISBN Numarası</label>-->
     </form>
+    <br>
+    <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
+      <div class="input-group mb-3">
+          <div class="custom-file">
+            <label for="booknAssign">Kitap almak için kitabın ISBN kodunu veya adını girin:</label>
+          <input type="text" name="bookInfo" id="bookAssign" required>
+            <button id="submitButton" type="submit">Kitap Al</button>
+          </div>
+        </div>
+  </form>
+
+    <script>
+     /*
+     document.getElementById("submitButton").addEventListener("click", function(event){        
+        event.preventDefault();
+        let input = document.getElementById("bookSearchField").value;
+        let entry = {"queryvar":input};
+        let xhr = new XMLHttpRequest();
+        xhr.responseType
+      });
+      */
+    </script>
 </body>
 </html>
