@@ -9,7 +9,8 @@ const bookUserSchema = new Schema({
         {
             bookIsbn:{type:String, trim:true, default:0},
             //Date
-            bookDate:{type:Date}
+            bookDate:{type:Date},
+            returnDate:{type:Date}
         }
     ]
 });
