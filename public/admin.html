@@ -23,8 +23,8 @@
         <label class="custom-file-label" for="imageInput">ISBN Fotoğrafı Yükle</label>
         <input type="file" name="bookImage" class="custom-file-input" id="imageInput"
           aria-describedby="inputGroupFileAddon01" required>
-          <br>
-          <br>
+        <br>
+        <br>
         <button type="submit">Kitap Ekle</button>
       </div>
     </div>
@@ -39,8 +39,68 @@
         <button type="submit">Zaman Atla</button>
       </div>
     </div>
-    <!--<label for="bookName">ISBN Numarası</label>-->
+  </form>
 
+  <p id="para"></p>
+  <!--<label for="bookName">ISBN Numarası</label>-->
+  <button type="submit" id="oylesine">BAS</button>
+
+  <script>
+    let btn = document.getElementById("oylesine");
+    let par = document.getElementById("para");
+    btn.addEventListener('click', function (e) {
+      e.preventDefault();
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/getUsers', true);
+      xhr.onload = async function () {
+        if (this.status == 200) {
+          var users = await JSON.parse(this.responseText);
+          console.log(users.length);
+          console.log(users);
+          let ztring;
+          for (let i = 0; i < users.length; i++) {
+            for (let m = 0; m < users[i].books.length; m++) {
+              console.log(users[i].books[m].bookIsbn);
+              ztring += users[i].books[m].bookIsbn + " ";
+            }
+            //console.log("uzunluq:"+users[i].books.length);
+          }
+          //console.log(maybelerbeybiler);
+
+          par.innerHTML = ztring;
+        }
+      }
+      xhr.send();
+    });
+
+
+
+    /*
+     async function deneme() {
+       console.log("bişi");
+       let btn = document.getElementById("oylesine");
+       btn.addEventListener("click", async (e) => {
+         e.preventDefault();
+         const mongoose = require('mongoose');
+         const bookUser = require("./models/bookUser");
+         mongoose.connect("mongodb://locaLhost:27017/library", {
+           useNewUrlParser: true,
+           useUnifiedTopology: true
+         });
+         mongoose.connection
+           .once('open', () => {
+             console.log('Connected to the library database');
+             console.log("DATE: " + systemDate.getDate() + " " + (systemDate.getMonth() + 1) + " " + systemDate.getFullYear());
+           })
+           .on('error', (error) => {
+             console.log("SOMETHING WENT WRONG WHILE TRYING TO CONNECT TO THE DATABASE! : ", error);
+           });
+           const res = await bookUser.find({ "_id": loggedUser.id });
+           let el = document.getElementById("para").innerHTML = res;
+       })
+     }
+    */
+  </script>
 </body>
 
 </html>
