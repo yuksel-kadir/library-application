@@ -53,7 +53,7 @@ app.get('/getUsers', async(req, res) => {
 	res.json(ress);
 });
 
-app.get('/', (req, res) => {z     
+app.get('/', (req, res) => {     
 	if(loggedUser.mode == "admin"){
 		res.redirect('/admin');
 	}else if(loggedUser.mode == "user"){
