@@ -2,105 +2,153 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yönetici Sayfası</title>
+  <title>Kullanıcı Sayfası &mdash;</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="adminUserPage/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="adminUserPage/css/bootstrap.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/magnific-popup.css">
+  <link rel="stylesheet" href="adminUserPage/css/jquery-ui.css">
+  <link rel="stylesheet" href="adminUserPage/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="adminUserPage/fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="adminUserPage/css/aos.css">
+
+  <link rel="stylesheet" href="adminUserPage/css/style.css">
+  <style>
+      .site-hero, .site-hero .row {
+    min-height: 100px;
+    height: calc(100vh - 95px);
+}
+  </style>
 </head>
 
 <body>
-  <h1>Yönetici Sayfası</h1>
 
-  <form id="adminIsbnUploadForm" method="POST" action="/admin" enctype="multipart/form-data">
-    <div class="input-group mb-3">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="inputGroupFileAddon01">Upload</span>
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
+        </div>
       </div>
-      <div class="custom-file">
-        <label for="booknameField">Kitap Adı</label>
-        <input type="text" name="bookname" id="booknameField" required>
-        <br>
-        <br>
-        <label class="custom-file-label" for="imageInput">ISBN Fotoğrafı Yükle</label>
-        <input type="file" name="bookImage" class="custom-file-input" id="imageInput"
-          aria-describedby="inputGroupFileAddon01" required>
-        <br>
-        <br>
-        <button type="submit">Kitap Ekle</button>
-      </div>
+      <div class="site-mobile-menu-body"></div>
     </div>
-    <!--<label for="bookName">ISBN Numarası</label>-->
-  </form>
-  <br>
-  <form id="adminIsbnUploadForm" method="POST" action="/admin" enctype="multipart/form-data">
-    <div class="input-group mb-3">
-      <div class="custom-file">
-        <label class="custom-file-label" for="imageInput">Gün Sayısı:</label>
-        <input type="text" name="bookname" id="booknameField" required>
-        <button type="submit">Zaman Atla</button>
+
+    <header class="site-navbar py-3" role="banner">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-11 col-xl-2" style="left:35%">
+            <h1 class="mb-0"><p href="index.html" class="text-white h2 mb-0">Yönetici<span
+                  class="text-primary">Sayfası</span> </p></h1>
+          </div>
+          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#"
+              class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+        </div>
       </div>
+  </div>
+  </header>
+
+  <div class="site-section site-hero">
+    <div class="container">
+      <div class="row align-items-center"
+        style="margin:0px;padding: 0px;position:absolute; left: 10px;width:99%;height:47.5%;">
+        <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
+          <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sisteme Kitap Yükle</h1>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kitap Adını ve ISBN Fotoğrafını Yükleyiniz</span>
+            <input class="d-block mb-5 caption" type="text" style="color:black" data-aos="fade-up" data-aos-delay="300"
+              name="bookInfo" id="bookAssign" required>
+              <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;margin-bottom:1%" data-aos="fade-up" data-aos-delay="300" required>
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
+              type="submit"><span>Kitap Kaydet</span></button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row align-items-center"
+        style="margin-top:25%;padding: 0px;position:absolute; left: 10px;width:99%;height:47.5%;">
+        <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
+          <form id="setDate" method="POST" action="/setDate" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sistem Günü Ötele</h1>
+            <input class="d-block mb-5 caption" type="number" style="color:black" data-aos="fade-up" data-aos-delay="300"
+              name="dayNumber" id="bookAssign" required>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Gün Sayısını Giriniz</span>
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
+              type="submit"><span>Gün Ötele</span></button>
+          </form>
+        </div>
+      </div>
+      <br>
+      <div class="row align-items-center"
+        style="margin-top:48%;padding: 0px;position:absolute; left: 10px;width:99%;height:47.5%;">
+        <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
+          <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Kullanıcı Listele</h1>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kullanıcıları Listelemek İçin Butona Tıklayın</span>
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
+              type="submit"><span>Kullanıcı Listele</span></button>
+          </form>
+        </div>
+      </div>
+      <!--
+      <div class="row align-items-center"
+        style="margin: 0px; padding:0px;position: absolute;left:30%;padding-bottom: 10%;height: 60%">
+        <div class="col-md-10" style="margin-top: 12%">
+          <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Al</h1>
+            <div style="margin-bottom:27%"></div>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
+              style="padding-top: 0%;margin-top: 0%">Kitap ISBN'si Veya Kitap Adı Giriniz</span>
+            <div style="margin-bottom:10%"></div>
+            <input class="d-block mb-5 caption" style="color:black" data-aos="fade-up" data-aos-delay="300" type="text"
+              name="bookInfo" id="bookAssign" required>
+            <div style="margin-bottom:12%;margin-top: 0%"></div>
+            <button id="submitButton" type="submit" class="btn-custom" data-aos="fade-up"
+              data-aos-delay="400"><span>Kitap Al</span></button>
+            <div style="padding-top: 0%"></div>
+          </form>
+        </div>
+      </div>-->
+      <!--
+      <div class="row align-items-center"
+        style="margin: 0px; padding:0px;position: absolute;left:60%;padding-bottom: 10%;height: 60%">
+        <div class="col-md-10" style="margin-top: 7%">
+          <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Ver</h1>
+            <div style="margin-bottom:9%"></div>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
+              style="padding-top: 0%;margin-top: 0%">Kitabın ISBN Fotoğrafını Yükleyiniz</span>
+            <div style="margin-bottom:10%"></div>
+            <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required>
+            <div style="margin-bottom:12%;margin-top: 17%"></div>
+            <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></button>
+            <div style="padding-top: 0%"></div>
+          </form>
+        </div>
+      </div>-->
     </div>
-  </form>
+  </div>
+  </div>
 
-  <p id="para"></p>
-  <!--<label for="bookName">ISBN Numarası</label>-->
-  <button type="submit" id="oylesine">BAS</button>
+  <script src="adminUserPage/js/jquery-3.3.1.min.js"></script>
+  <script src="adminUserPage/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="adminUserPage/js/jquery-ui.js"></script>
+  <script src="adminUserPage/js/popper.min.js"></script>
+  <script src="adminUserPage/js/bootstrap.min.js"></script>
+  <script src="adminUserPage/js/owl.carousel.min.js"></script>
+  <script src="adminUserPage/js/jquery.stellar.min.js"></script>
+  <script src="adminUserPage/js/jquery.countdown.min.js"></script>
+  <script src="adminUserPage/js/jquery.magnific-popup.min.js"></script>
+  <script src="adminUserPage/js/bootstrap-datepicker.min.js"></script>
+  <script src="adminUserPage/js/aos.js"></script>
 
-  <script>
-    let btn = document.getElementById("oylesine");
-    let par = document.getElementById("para");
-    btn.addEventListener('click', function (e) {
-      e.preventDefault();
-      var xhr = new XMLHttpRequest();
-      xhr.open('GET', '/getUsers', true);
-      xhr.onload = async function () {
-        if (this.status == 200) {
-          var users = await JSON.parse(this.responseText);
-          console.log(users.length);
-          console.log(users);
-          let ztring;
-          for (let i = 0; i < users.length; i++) {
-            for (let m = 0; m < users[i].books.length; m++) {
-              console.log(users[i].books[m].bookIsbn);
-              ztring += users[i].books[m].bookIsbn + " ";
-            }
-            //console.log("uzunluq:"+users[i].books.length);
-          }
-          //console.log(maybelerbeybiler);
+  <script src="adminUserPage/js/main.js"></script>
 
-          par.innerHTML = ztring;
-        }
-      }
-      xhr.send();
-    });
-
-
-
-    /*
-     async function deneme() {
-       console.log("bişi");
-       let btn = document.getElementById("oylesine");
-       btn.addEventListener("click", async (e) => {
-         e.preventDefault();
-         const mongoose = require('mongoose');
-         const bookUser = require("./models/bookUser");
-         mongoose.connect("mongodb://locaLhost:27017/library", {
-           useNewUrlParser: true,
-           useUnifiedTopology: true
-         });
-         mongoose.connection
-           .once('open', () => {
-             console.log('Connected to the library database');
-             console.log("DATE: " + systemDate.getDate() + " " + (systemDate.getMonth() + 1) + " " + systemDate.getFullYear());
-           })
-           .on('error', (error) => {
-             console.log("SOMETHING WENT WRONG WHILE TRYING TO CONNECT TO THE DATABASE! : ", error);
-           });
-           const res = await bookUser.find({ "_id": loggedUser.id });
-           let el = document.getElementById("para").innerHTML = res;
-       })
-     }
-    */
-  </script>
 </body>
 
 </html>

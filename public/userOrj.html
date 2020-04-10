@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kullanıcı Sayfası</title>
+</head>
+<body>
+    <h1>KULLANICI SAYFASI</h1>
+    <!--ARAMA ÇUBUĞU-->
+    <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
+        <div class="input-group mb-3">
+            <div class="custom-file">
+              <label for="booknameField">Kitap ISBN'si veya kitap adı girin:</label>
+    	      <input type="text" name="queryvar" id="bookSearchField" required>
+              <button id="submitButton" type="submit">Kitap Ara</button>
+            </div>
+          </div>
+    </form>
+    <br>
+    <!--KİTAP ALMA ÇUBUĞU-->
+    <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
+      <div class="input-group mb-3">
+          <div class="custom-file">
+            <label for="booknAssign">Kitap almak için kitabın ISBN kodunu veya adını girin:</label>
+          <input type="text" name="bookInfo" id="bookAssign" required>
+            <button id="submitButton" type="submit">Kitap Al</button>
+          </div>
+        </div>
+  </form>
+  <!--KİTAP VERME ÇUBUĞU-->
+  <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
+      <div class="custom-file">
+        <br>
+        <br>
+        <label class="custom-file-label" for="imageInput">Geri Verilecek Kitabın ISBN Fotoğrafını Yükle</label>
+        <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput"
+          aria-describedby="inputGroupFileAddon01" required>
+        <button type="submit">Kitap Ver</button>
+      </div>
+    </div>
+    
+  </form>
+    <script>
+     /*
+     document.getElementById("submitButton").addEventListener("click", function(event){        
+        event.preventDefault();
+        let input = document.getElementById("bookSearchField").value;
+        let entry = {"queryvar":input};
+        let xhr = new XMLHttpRequest();
+        xhr.responseType
+      });
+      */
+    </script>
+</body>
+</html>

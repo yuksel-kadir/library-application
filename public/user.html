@@ -1,56 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kullanıcı Sayfası</title>
+  <title>Kullanıcı Sayfası &mdash;</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
+  <link rel="stylesheet" href="adminUserPage/fonts/icomoon/style.css">
+  <link rel="stylesheet" href="adminUserPage/css/bootstrap.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/magnific-popup.css">
+  <link rel="stylesheet" href="adminUserPage/css/jquery-ui.css">
+  <link rel="stylesheet" href="adminUserPage/css/owl.carousel.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/owl.theme.default.min.css">
+  <link rel="stylesheet" href="adminUserPage/css/bootstrap-datepicker.css">
+  <link rel="stylesheet" href="adminUserPage/fonts/flaticon/font/flaticon.css">
+  <link rel="stylesheet" href="adminUserPage/css/aos.css">
+
+  <link rel="stylesheet" href="adminUserPage/css/style.css">
 </head>
+
 <body>
-    <h1>KULLANICI SAYFASI</h1>
-    <!--ARAMA ÇUBUĞU-->
-    <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
-        <div class="input-group mb-3">
-            <div class="custom-file">
-              <label for="booknameField">Kitap ISBN'si veya kitap adı girin:</label>
-    	      <input type="text" name="queryvar" id="bookSearchField" required>
-              <button id="submitButton" type="submit">Kitap Ara</button>
-            </div>
-          </div>
-    </form>
-    <br>
-    <!--KİTAP ALMA ÇUBUĞU-->
-    <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
-      <div class="input-group mb-3">
-          <div class="custom-file">
-            <label for="booknAssign">Kitap almak için kitabın ISBN kodunu veya adını girin:</label>
-          <input type="text" name="bookInfo" id="bookAssign" required>
-            <button id="submitButton" type="submit">Kitap Al</button>
-          </div>
+
+  <div class="site-wrap">
+
+    <div class="site-mobile-menu">
+      <div class="site-mobile-menu-header">
+        <div class="site-mobile-menu-close mt-3">
+          <span class="icon-close2 js-menu-toggle"></span>
         </div>
-  </form>
-  <!--KİTAP VERME ÇUBUĞU-->
-  <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
-      <div class="custom-file">
-        <br>
-        <br>
-        <label class="custom-file-label" for="imageInput">Geri Verilecek Kitabın ISBN Fotoğrafını Yükle</label>
-        <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput"
-          aria-describedby="inputGroupFileAddon01" required>
-        <button type="submit">Kitap Ver</button>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+    </div>
+
+    <header class="site-navbar py-3" role="banner">
+      <div class="container-fluid">
+        <div class="row align-items-center">
+          <div class="col-11 col-xl-2" style="left:35%">
+            <h1 class="mb-0"><p href="index.html" class="text-white h2 mb-0">Kullanıcı<span
+                  class="text-primary" id="addUserName">Sayfası</span> </p></h1>
+          </div>
+          <!--<div class="col-12 col-md-10 d-none d-xl-block">
+            <nav class="site-navigation position-relative text-right" role="navigation">
+              <ul class="site-menu js-clone-nav mx-auto d-none d-lg-block">
+                <li class="active"><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="speakers.html">Speakers</a></li>
+                <li><a href="news.html">News</a></li>
+                <li><a href="contact.html">Contacts</a></li>
+                <li class="cta"><a href="buy-tickets.html">Buy Tickets</a></li>
+              </ul>
+            </nav>
+          </div>-->
+          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#"
+              class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
+        </div>
+      </div>
+  </div>
+  </header>
+
+  <div class="site-section site-hero">
+    <div class="container">
+      <div class="row align-items-center"
+        style="margin:0px; height: 10em; padding: 0px;height: 100px;position:absolute; left: 10px">
+        <div class="col-md-10">
+          <!-- <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">  -->
+          <form id="userSearch">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Kitap Ara</h1>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kitap ISBN'si Veya Kitap Adı
+              Giriniz</span>
+            <input class="d-block mb-5 caption" type="text" style="color:black" data-aos="fade-up" data-aos-delay="300"
+              name="queryvar" id="bookSearch" placeholder="Ad veya ISBN" required>
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
+              type="submit"><span>Kitap Ara</span></button>
+          </form>
+        </div>
+      </div>
+      <div class="row align-items-center"
+        style="margin: 0px; padding:0px;position: absolute;left:30%;padding-bottom: 10%;height: 60%">
+        <div class="col-md-10" style="margin-top: 12%">
+          <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Al</h1>
+            <div style="margin-bottom:27%"></div>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
+              style="padding-top: 0%;margin-top: 0%">Kitap ISBN'si Veya Kitap Adı Giriniz</span>
+            <div style="margin-bottom:10%"></div>
+            <input class="d-block mb-5 caption" style="color:black" data-aos="fade-up" data-aos-delay="300" type="text"
+              name="bookInfo" id="bookAssign" required>
+            <div style="margin-bottom:12%;margin-top: 0%"></div>
+            <button id="submitButton" type="submit" class="btn-custom" data-aos="fade-up"
+              data-aos-delay="400"><span>Kitap Al</span></button>
+            <!--<a href="#" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ara</span></a>-->
+            <div style="padding-top: 0%"></div>
+          </form>
+        </div>
+      </div>
+      <div class="row align-items-center"
+        style="margin: 0px; padding:0px;position: absolute;left:60%;padding-bottom: 10%;height: 60%">
+        <div class="col-md-10" style="margin-top: 7%">
+          <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
+            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Ver</h1>
+            <div style="margin-bottom:9%"></div>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
+              style="padding-top: 0%;margin-top: 0%">Kitabın ISBN Fotoğrafını Yükleyiniz</span>
+            <div style="margin-bottom:10%"></div>
+            <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required>
+            <div style="margin-bottom:12%;margin-top: 17%"></div>
+            <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></button>
+            <!--<a href="#" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></a>-->
+            <div style="padding-top: 0%"></div>
+          </form>
+          <!--<span class="d-block mb-3 caption" data-aos="fade-up" data-aos-delay="100">AMINİGİ 2019</span>-->
+        </div>
       </div>
     </div>
-    
-  </form>
-    <script>
-     /*
-     document.getElementById("submitButton").addEventListener("click", function(event){        
-        event.preventDefault();
-        let input = document.getElementById("bookSearchField").value;
-        let entry = {"queryvar":input};
+  </div>
+
+  <script src="adminUserPage/js/jquery-3.3.1.min.js"></script>
+  <script src="adminUserPage/js/jquery-migrate-3.0.1.min.js"></script>
+  <script src="adminUserPage/js/jquery-ui.js"></script>
+  <script src="adminUserPage/js/popper.min.js"></script>
+  <script src="adminUserPage/js/bootstrap.min.js"></script>
+  <script src="adminUserPage/js/owl.carousel.min.js"></script>
+  <script src="adminUserPage/js/jquery.stellar.min.js"></script>
+  <script src="adminUserPage/js/jquery.countdown.min.js"></script>
+  <script src="adminUserPage/js/jquery.magnific-popup.min.js"></script>
+  <script src="adminUserPage/js/bootstrap-datepicker.min.js"></script>
+  <script src="adminUserPage/js/aos.js"></script>
+
+  <script src="adminUserPage/js/main.js"></script>
+  <script>
+    loadUserName();
+    function loadUserName(){
+      console.log("called");
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', '/getUserName', true);
+      xhr.onload = async function () {
+        if (this.status == 200) {
+          let element = document.getElementById("addUserName");
+          let userName = await JSON.parse(this.responseText);
+          element.innerHTML = "Sayfası("+userName+")";
+          console.log(userName);
+        }
+      }
+      xhr.send();
+    }
+    //document.getElementById('submitButton').addEventListener('click', getBookInfo);
+    document.getElementById('userSearch').addEventListener('submit', getBookInfo);
+    function getBookInfo(e){
+      e.preventDefault();
+        let bookInfo = document.getElementById("bookSearch").value;
+        let param = 'queryvar='+bookInfo;
+        bookInfo.value = "";
+        //console.log(param);
         let xhr = new XMLHttpRequest();
-        xhr.responseType
-      });
-      */
-    </script>
+        xhr.open('POST', '/userSearch', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+          let result = JSON.parse(this.responseText);
+          console.log("RES!: "+result);
+          if(result == ""){
+            alert("Couldn't find the book you are looking for!");
+          }else{
+            alert("The book you are looking for is in the library! Bookinfo:"+result.bookname+" "+ "ISBN:" +" "+result.isbn);
+          }
+          
+        }
+        //console.log(xhr);
+        xhr.send(param);
+    }
+    //Request Book
+    document.getElementById('assignBook').addEventListener('submit', getBook);
+    function getBook(e){
+      e.preventDefault();
+        let bookInfo = document.getElementById("bookAssign").value;
+        let param = 'bookInfo='+bookInfo;
+        bookInfo.value = "";
+        let xhr = new XMLHttpRequest();
+        xhr.open('POST', '/assignBook', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onload = function(){
+          let result = JSON.parse(this.responseText);
+          console.log("RES!: "+result.hasMoreThanThreeBooks,result.hasOutOfDateBook,result.someOneHasBook);
+          let message = "";
+          if(result.hasMoreThanThreeBooks){
+              message += "You have more 3 books already!\n";
+          }if(result.hasOutOfDateBook){
+              message += "You have some out of date books! You have to give it them first!\n";
+          }if(result.someOneHasBook){
+              message += "You can't take this book! It is owned already!";
+          }
+          if(result == ""){
+            alert("Couldn't find the book you are looking for!");
+          }else if(result == "error"){
+            alert("Something went wrong while searching the book!");
+          }else{
+            alert(message);
+            message = "";
+          }
+          
+        }
+        //console.log(xhr);
+        xhr.send(param);
+    }
+  </script>
 </body>
+
 </html>
