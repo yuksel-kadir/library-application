@@ -53,7 +53,7 @@ app.get('/getUsers', async(req, res) => {
 	res.json(ress);
 });
 
-app.get('/', (req, res) => {z     
+app.get('/', (req, res) => {    
 	if(loggedUser.mode == "admin"){
 		res.redirect('/admin');
 	}else if(loggedUser.mode == "user"){
@@ -253,8 +253,6 @@ async function deleteBook(isbn){
 	}else{
 		let remove = await bookUser.findOneAndUpdate({"_id": loggedUser.id}, {$pull: {books:{bookIsbn:isbn}}},{new:true});
 	}
-	console.log(deneme);
-	console.log("deneme: " + deneme);
 }
 
 //Book Handling. Decide whether the user is going to take book for the first time or not.

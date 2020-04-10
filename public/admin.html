@@ -46,8 +46,6 @@
             <h1 class="mb-0"><p href="index.html" class="text-white h2 mb-0">Yönetici<span
                   class="text-primary">Sayfası</span> </p></h1>
           </div>
-          <div class="d-inline-block d-xl-none ml-md-0 mr-auto py-3" style="position: relative; top: 3px;"><a href="#"
-              class="site-menu-toggle js-menu-toggle text-white"><span class="icon-menu h3"></span></a></div>
         </div>
       </div>
   </div>
@@ -58,12 +56,12 @@
       <div class="row align-items-center"
         style="margin:0px;padding: 0px;position:absolute; left: 10px;width:99%;height:47.5%;">
         <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
-          <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
+          <form id="addBook" method="POST" action="/admin" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sisteme Kitap Yükle</h1>
             <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kitap Adını ve ISBN Fotoğrafını Yükleyiniz</span>
             <input class="d-block mb-5 caption" type="text" style="color:black" data-aos="fade-up" data-aos-delay="300"
-              name="bookInfo" id="bookAssign" required>
-              <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;margin-bottom:1%" data-aos="fade-up" data-aos-delay="300" required>
+              name="bookname" id="bookAssign" required>
+              <input type="file" name="bookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;margin-bottom:1%" data-aos="fade-up" data-aos-delay="300" required>
             <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
               type="submit"><span>Kitap Kaydet</span></button>
           </form>
@@ -76,7 +74,7 @@
           <form id="setDate" method="POST" action="/setDate" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sistem Günü Ötele</h1>
             <input class="d-block mb-5 caption" type="number" style="color:black" data-aos="fade-up" data-aos-delay="300"
-              name="dayNumber" id="bookAssign" required>
+              name="dayNumber" id="bookAssign" min="1" required>
             <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Gün Sayısını Giriniz</span>
             <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
               type="submit"><span>Gün Ötele</span></button>
