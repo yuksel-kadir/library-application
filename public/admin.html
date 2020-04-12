@@ -184,17 +184,9 @@
           var users = JSON.parse(this.responseText);
           console.log(users.length);
           console.log(users);
-          //let ztring;
-          /*
-          for (let i = 0; i < users.length; i++) {
-            for (let m = 0; m < users[i].books.length; m++) {
-              console.log(users[i].books[m].bookIsbn);
-              ztring += users[i].books[m].bookIsbn + " ";
-            }
-            //console.log("uzunluq:"+users[i].books.length);
-          }*/
           let keys = ["#", "Username", "Book Isbn", "Book Issue", "Book Due Date"];
           let table = document.getElementById("table1");
+          table.innerHTML = "";
           let thead = table.createTHead();
           thead.setAttribute("class", "thead-dark");
           let row = thead.insertRow();
@@ -209,12 +201,9 @@
             for (let m = 0; m < users[i].books.length; m++) {
               let date1 = new Date(users[i].books[m].bookDate);
               let date2 = new Date(users[i].books[m].returnDate);
-              console.log(date1);
               let formattedDate = date1.getDate() + "-" + (date1.getMonth()+1) + "-" + date1.getFullYear();
               let formattedDate2 = date2.getDate() + "-" + (date2.getMonth()+1) + "-" + date2.getFullYear();
               count++;
-              console.log(1);
-              console.log(users[i].books[m]);
               row = table.insertRow();
               cell1 = row.insertCell();
               cell2 = row.insertCell();
@@ -232,7 +221,6 @@
               cell4.appendChild(text4);
               cell5.appendChild(text5);
             }
-            //console.log("uzunluq:"+users[i].books.length);
           }
           console.log("COUNT:" + count);
         }
@@ -242,7 +230,6 @@
   </script>
 
 </body>
-
 </html>
 
 <!--

@@ -117,7 +117,7 @@
   <script src="adminUserPage/js/main.js"></script>
   <script>
     //Load Username
-    loadUserName();
+    document.addEventListener('DOMContentLoaded', loadUserName);
     function loadUserName(){
       console.log("called");
       var xhr = new XMLHttpRequest();
@@ -133,13 +133,8 @@
       xhr.send();
     }
     
-    function bas(e){
-      //document.getElementById("returnImageInput").value
-      console.log("VALUE: "+ e.value);
-    }
-
-    document.getElementById("userIsbnUploadForm").addEventListener('submit', imageUpload);
     //Upload Image
+    document.getElementById("userIsbnUploadForm").addEventListener('submit', imageUpload);
     function imageUpload(e){
       e.preventDefault();
       let imageFile = document.getElementById("returnImageInput");
@@ -160,6 +155,7 @@
       xhr.open('POST', '/return', true);
       xhr.send(formData);
     }
+
     //Book Search  document.getElementById('submitButton').addEventListener('click', getBookInfo);
     document.getElementById('userSearch').addEventListener('submit', getBookInfo);
     function getBookInfo(e){
@@ -181,9 +177,9 @@
           }
           
         }
-        //console.log(xhr);
         xhr.send(param);
     }
+
     //Request Book
     document.getElementById('assignBook').addEventListener('submit', getBook);
     function getBook(e){
@@ -211,11 +207,8 @@
             alert("Something went wrong while searching the book!");
           }else{
             alert("Book added to your library!");
-            //message = "";
           }
-          
         }
-        //console.log(xhr);
         xhr.send(param);
     }
   </script>
