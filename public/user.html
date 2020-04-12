@@ -72,7 +72,7 @@
               style="padding-top: 0%;margin-top: 0%">Kitap ISBN'si Veya Kitap Adı Giriniz</span>
             <div style="margin-bottom:10%"></div>
             <input class="d-block mb-5 caption" style="color:black" data-aos="fade-up" data-aos-delay="300" type="text"
-              name="bookInfo" id="bookAssign" required>
+              name="bookInfo" id="bookAssign" placeholder="Ad veya ISBN" required>
             <div style="margin-bottom:12%;margin-top: 0%"></div>
             <button id="submitButton" type="submit" class="btn-custom" data-aos="fade-up"
               data-aos-delay="400"><span>Kitap Al</span></button>
@@ -84,13 +84,13 @@
       <div class="row align-items-center"
         style="margin: 0px; padding:0px;position: absolute;left:60%;padding-bottom: 10%;height: 60%">
         <div class="col-md-10" style="margin-top: 7%">
-          <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
+          <form id="userIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Ver</h1>
             <div style="margin-bottom:9%"></div>
             <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
               style="padding-top: 0%;margin-top: 0%">Kitabın ISBN Fotoğrafını Yükleyiniz</span>
             <div style="margin-bottom:10%"></div>
-            <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required>
+            <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required single>
             <div style="margin-bottom:12%;margin-top: 17%"></div>
             <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></button>
             <!--<a href="#" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></a>-->
@@ -116,6 +116,7 @@
 
   <script src="adminUserPage/js/main.js"></script>
   <script>
+    //Load Username
     loadUserName();
     function loadUserName(){
       console.log("called");
@@ -131,7 +132,35 @@
       }
       xhr.send();
     }
-    //document.getElementById('submitButton').addEventListener('click', getBookInfo);
+    
+    function bas(e){
+      //document.getElementById("returnImageInput").value
+      console.log("VALUE: "+ e.value);
+    }
+
+    document.getElementById("userIsbnUploadForm").addEventListener('submit', imageUpload);
+    //Upload Image
+    function imageUpload(e){
+      e.preventDefault();
+      let imageFile = document.getElementById("returnImageInput");
+      console.log("tttttt:" + imageFile.files[0]);
+      const xhr = new XMLHttpRequest();
+      const formData = new FormData();
+      xhr.onload = function(){
+        let result = JSON.parse(this.responseText);
+        if(result == "0"){
+          alert("You don't own this book!");
+        }else if(result == "1"){ 
+          alert("The book have returned to the library!");
+        }else{
+          alert("unknown");
+        }
+      }
+      formData.append("returnBookImage",imageFile.files[0]);
+      xhr.open('POST', '/return', true);
+      xhr.send(formData);
+    }
+    //Book Search  document.getElementById('submitButton').addEventListener('click', getBookInfo);
     document.getElementById('userSearch').addEventListener('submit', getBookInfo);
     function getBookInfo(e){
       e.preventDefault();
@@ -181,8 +210,8 @@
           }else if(result == "error"){
             alert("Something went wrong while searching the book!");
           }else{
-            alert(message);
-            message = "";
+            alert("Book added to your library!");
+            //message = "";
           }
           
         }

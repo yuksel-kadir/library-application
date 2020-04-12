@@ -19,10 +19,11 @@
 
   <link rel="stylesheet" href="adminUserPage/css/style.css">
   <style>
-      .site-hero, .site-hero .row {
-    min-height: 100px;
-    height: calc(100vh - 95px);
-}
+    .site-hero,
+    .site-hero .row {
+      min-height: 100px;
+      height: calc(100vh - 95px);
+    }
   </style>
 </head>
 
@@ -43,8 +44,9 @@
       <div class="container-fluid">
         <div class="row align-items-center">
           <div class="col-11 col-xl-2" style="left:35%">
-            <h1 class="mb-0"><p href="index.html" class="text-white h2 mb-0">Yönetici<span
-                  class="text-primary">Sayfası</span> </p></h1>
+            <h1 class="mb-0">
+              <p href="index.html" class="text-white h2 mb-0">Yönetici<span class="text-primary">Sayfası</span> </p>
+            </h1>
           </div>
         </div>
       </div>
@@ -58,10 +60,13 @@
         <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
           <form id="addBook" method="POST" action="/admin" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sisteme Kitap Yükle</h1>
-            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kitap Adını ve ISBN Fotoğrafını Yükleyiniz</span>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kitap Adını ve ISBN Fotoğrafını
+              Yükleyiniz</span>
             <input class="d-block mb-5 caption" type="text" style="color:black" data-aos="fade-up" data-aos-delay="300"
-              name="bookname" id="bookAssign" required>
-              <input type="file" name="bookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;margin-bottom:1%" data-aos="fade-up" data-aos-delay="300" required>
+              name="bookname" id="bookName" required>
+            <input type="file" name="bookImage" class="custom-file-input" id="returnImageInput"
+              class="d-block mb-5 caption" style="color:orange;margin-bottom:1%" data-aos="fade-up" data-aos-delay="300"
+              required>
             <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
               type="submit"><span>Kitap Kaydet</span></button>
           </form>
@@ -73,11 +78,11 @@
         <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
           <form id="setDate" method="POST" action="/setDate" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Sistem Günü Ötele</h1>
-            <input class="d-block mb-5 caption" type="number" style="color:black" data-aos="fade-up" data-aos-delay="300"
-              name="dayNumber" id="bookAssign" min="1" required>
             <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Gün Sayısını Giriniz</span>
-            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
-              type="submit"><span>Gün Ötele</span></button>
+            <input class="d-block mb-5 caption" type="number" style="color:black" data-aos="fade-up"
+              data-aos-delay="300" name="dayNumber" id="bookDay" min="1" required>
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton" type="submit"><span>Gün
+                Ötele</span></button>
           </form>
         </div>
       </div>
@@ -87,81 +92,18 @@
         <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
           <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200">Kullanıcı Listele</h1>
-            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kullanıcıları Listelemek İçin Butona Tıklayın</span>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300">Kullanıcıları ve Sahip Oldukları
+              Kitapları Listelemek İçin Butona Tıklayın</span>
             <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
               type="submit"><span>Kullanıcı Listele</span></button>
           </form>
           <div style="margin-top:5%;width: 65%;">
-            <table class="table">
-              <thead class="thead-dark">
-                <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">First</th>
-                  <th scope="col">Last</th>
-                  <th scope="col">Handle</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <th scope="row">1</th>
-                  <td>Mark</td>
-                  <td>Otto</td>
-                  <td>@mdo</td>
-                </tr>
-                <tr>
-                  <th scope="row">2</th>
-                  <td>Jacob</td>
-                  <td>Thornton</td>
-                  <td>@fat</td>
-                </tr>
-                <tr>
-                  <th scope="row">3</th>
-                  <td>Larry</td>
-                  <td>the Bird</td>
-                  <td>@twitter</td>
-                </tr>
-              </tbody>
+            <table class="table" data-aos="fade-up" data-aos-delay="400" id="table1">
+
             </table>
           </div>
         </div>
       </div>
-      
-      <!--
-      <div class="row align-items-center"
-        style="margin: 0px; padding:0px;position: absolute;left:30%;padding-bottom: 10%;height: 60%">
-        <div class="col-md-10" style="margin-top: 12%">
-          <form id="assignBook" method="POST" action="/assignBook" enctype="multipart/form-data">
-            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Al</h1>
-            <div style="margin-bottom:27%"></div>
-            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
-              style="padding-top: 0%;margin-top: 0%">Kitap ISBN'si Veya Kitap Adı Giriniz</span>
-            <div style="margin-bottom:10%"></div>
-            <input class="d-block mb-5 caption" style="color:black" data-aos="fade-up" data-aos-delay="300" type="text"
-              name="bookInfo" id="bookAssign" required>
-            <div style="margin-bottom:12%;margin-top: 0%"></div>
-            <button id="submitButton" type="submit" class="btn-custom" data-aos="fade-up"
-              data-aos-delay="400"><span>Kitap Al</span></button>
-            <div style="padding-top: 0%"></div>
-          </form>
-        </div>
-      </div>-->
-      <!--
-      <div class="row align-items-center"
-        style="margin: 0px; padding:0px;position: absolute;left:60%;padding-bottom: 10%;height: 60%">
-        <div class="col-md-10" style="margin-top: 7%">
-          <form id="adminIsbnUploadForm" method="POST" action="/return" enctype="multipart/form-data">
-            <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="">Kitap Ver</h1>
-            <div style="margin-bottom:9%"></div>
-            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300"
-              style="padding-top: 0%;margin-top: 0%">Kitabın ISBN Fotoğrafını Yükleyiniz</span>
-            <div style="margin-bottom:10%"></div>
-            <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required>
-            <div style="margin-bottom:12%;margin-top: 17%"></div>
-            <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></button>
-            <div style="padding-top: 0%"></div>
-          </form>
-        </div>
-      </div>-->
     </div>
   </div>
   </div>
@@ -180,6 +122,160 @@
 
   <script src="adminUserPage/js/main.js"></script>
 
+  <script>
+    //Upload Book
+    document.getElementById("addBook").addEventListener('submit', uploadBookForm);
+    function uploadBookForm(e) {
+      e.preventDefault();
+      let book = document.getElementById("bookName").value;
+      console.log("book:" + book);
+      let bookPhoto = document.getElementById("returnImageInput");
+      console.log("photo name:" + bookPhoto.files[0]);
+      let data = new FormData();
+      data.append("bookname", book);
+      data.append("bookImage", bookPhoto.files[0]);
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        let result = JSON.parse(this.responseText);
+        if (result == "0") {
+          alert("Something went wrong while uploading the ISBN photo!");
+        } else if (result == "2") {
+          alert("Something went wrong while saving the book to the database!");
+        } else if (result == "1") {
+          alert("Book uploaded successfully!");
+        }
+      }
+      xhr.open('POST', '/admin', true);
+      xhr.send(data);
+    }
+
+    //Change Date
+    document.getElementById("setDate").addEventListener('submit', uploadDayNumber);
+    function uploadDayNumber(e) {
+      e.preventDefault();
+      let number = document.getElementById("bookDay").value;
+      console.log("dayNumber:" + number);
+      let data = new FormData();
+      data.append("dayNumber", number);
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        let result = JSON.parse(this.responseText);
+        if (result == "0") {
+          alert("Something went wrong while changing the system date!");
+        } else {
+          alert("System date updated!\nNew Date: " + result);
+        }
+      }
+      xhr.open('POST', '/setDate', false);
+      xhr.send(data);
+    }
+
+    //List Users
+    document.getElementById("userSearch").addEventListener('submit', listUsers);
+
+
+
+    function listUsers(e) {
+      e.preventDefault();
+      let xhr = new XMLHttpRequest();
+      xhr.open('GET', '/getUsers', false);
+      xhr.onload = function () {
+        if (this.status == 200) {
+          var users = JSON.parse(this.responseText);
+          console.log(users.length);
+          console.log(users);
+          //let ztring;
+          /*
+          for (let i = 0; i < users.length; i++) {
+            for (let m = 0; m < users[i].books.length; m++) {
+              console.log(users[i].books[m].bookIsbn);
+              ztring += users[i].books[m].bookIsbn + " ";
+            }
+            //console.log("uzunluq:"+users[i].books.length);
+          }*/
+          let keys = ["#", "Username", "Book Isbn", "Book Issue", "Book Due Date"];
+          let table = document.getElementById("table1");
+          let thead = table.createTHead();
+          thead.setAttribute("class", "thead-dark");
+          let row = thead.insertRow();
+          for (let k of keys) {
+            let th = document.createElement("th");
+            let text = document.createTextNode(k);
+            th.appendChild(text);
+            row.appendChild(th);
+          }
+          let count = 0;
+          for (let i = 0; i < users.length; i++) {
+            for (let m = 0; m < users[i].books.length; m++) {
+              let date1 = new Date(users[i].books[m].bookDate);
+              let date2 = new Date(users[i].books[m].returnDate);
+              console.log(date1);
+              let formattedDate = date1.getDate() + "-" + (date1.getMonth()+1) + "-" + date1.getFullYear();
+              let formattedDate2 = date2.getDate() + "-" + (date2.getMonth()+1) + "-" + date2.getFullYear();
+              count++;
+              console.log(1);
+              console.log(users[i].books[m]);
+              row = table.insertRow();
+              cell1 = row.insertCell();
+              cell2 = row.insertCell();
+              cell3 = row.insertCell();
+              cell4 = row.insertCell();
+              cell5 = row.insertCell();
+              let text1 = document.createTextNode(count);
+              let text2 = document.createTextNode(users[i]._id);
+              let text3 = document.createTextNode(users[i].books[m].bookIsbn);
+              let text4 = document.createTextNode(formattedDate);
+              let text5 = document.createTextNode(formattedDate2);
+              cell1.appendChild(text1);
+              cell2.appendChild(text2);
+              cell3.appendChild(text3);
+              cell4.appendChild(text4);
+              cell5.appendChild(text5);
+            }
+            //console.log("uzunluq:"+users[i].books.length);
+          }
+          console.log("COUNT:" + count);
+        }
+      }
+      xhr.send();
+    }
+  </script>
+
 </body>
 
 </html>
+
+<!--
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Username</th>
+                  <th scope="col">Book ISBN</th>
+                  <th scope="col">Book Issue Date</th>
+                  <th scope="col">Book Due Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Mark</td>
+                  <td>9789944829052</td>
+                  <td>22-22-1999</td>
+                  <td>smt</td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Jacob</td>
+                  <td>9789944829052</td>
+                  <td>22-22-1999</td>
+                  <td>smt</td>
+                </tr>
+                <tr>
+                  <th scope="row">3</th>
+                  <td>Larry</td>
+                  <td>9789944829052</td>
+                  <td>22-22-1999</td>
+                  <td>smt</td>
+                </tr>
+              </tbody>
+            -->

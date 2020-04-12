@@ -8,7 +8,7 @@ const bookUser = require("./models/bookUser");
 const users = require("./models/user");
 const { createWorker } = require("tesseract.js");
 let systemDate = new Date();
-
+let errorCode;
 let loggedUser = {
 	id: "",
 	username: "",
@@ -18,7 +18,7 @@ let loggedUser = {
 	hasOutOfDateBook:false,
 	someOneHasBook:false
 }
-let searchMode = 0; //0 = List All, 1 = Search By ISBN, 2 = Search By Book Owner
+
 //const worker = createWorker();
 const app = express();
 //Map global promise - get rid of warning
@@ -149,8 +149,18 @@ app.post('/assignBook', async (req, res) => {
 
 app.post('/setDate', (req, res) => {
 	let day = parseInt(req.body.dayNumber);
-	changeSystemDate(day);
-	res.redirect('/admin');
+	let state = changeSystemDate(day);
+	if(state == 0){
+		console.log("ERROR WHILE CHANGING SYSTEM DATE!");
+		res.json(0);
+	}else{
+		let str = systemDate.getDate() + " " + (systemDate.getMonth()+1)+" "+systemDate.getUTCFullYear();
+		//console.log(str);
+		//console.log(JSON.stringify(str));
+		res.json(str);
+	}
+	//res.json(state);
+	//res.redirect('/admin');
 });
 
 app.post('/userSearch', async (req, res) => {
@@ -217,16 +227,20 @@ app.post('/admin', (req, res) => {
 	console.log("Image object: " + imageFile);
 	console.log("Name of the book: " + bookName);
 
-	imageFile.mv(imageAddress, function (error) {
+	imageFile.mv(imageAddress, async function (error) {
 		if (error) {
 			console.log("Couldn't upload the isbn image file.");
 			console.log(error);
+			errorCode = 0;
+			res.json(errorCode);
 		} else {
 			console.log("Image file successfully uploaded!");
-			readImageAndUploadBookInfo(imageAddress, bookName);
+			await readImageAndUploadBookInfo(imageAddress, bookName);
+			console.log("ERRORCODE: " + errorCode);
+			res.json(errorCode);
 		}
 	});
-	res.redirect("/admin");
+	//res.redirect("/admin");
 });
 
 app.post('/return', async(req, res) => {
@@ -234,8 +248,8 @@ app.post('/return', async(req, res) => {
 	console.log("Name of the image file: " + imageFile.name);
 	console.log("Image object: " + imageFile.tempFilePath);
 	let bleagh = await getTextFromImage(imageFile.data);
-	deleteBook(bleagh);
-	res.json(bleagh);
+	let status  = await deleteBook(bleagh);
+	res.json(status);
 });
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
@@ -247,18 +261,28 @@ function resetUserBookSettings(){
 }
 
 async function deleteBook(isbn){
-	let control = await bookUser.find({"_id": loggedUser.id, books:{"isbnNumber":isbn}});
+	console.log("delete: " + isbn);
+	let control = await bookUser.find({"_id": loggedUser.id, "books.bookIsbn":isbn});
+	//console.log("control: " + control);
+	//console.log(typeof isbn);
+	
 	if(control.length == 0){
 		console.log("You can't give back this book! Because you don't own it!");
+		return 0;
 	}else{
 		let remove = await bookUser.findOneAndUpdate({"_id": loggedUser.id}, {$pull: {books:{bookIsbn:isbn}}},{new:true});
+		console.log(remove);
+		return 1;
 	}
+	
 }
 
 //Book Handling. Decide whether the user is going to take book for the first time or not.
+/*
 async function assignBook(isbnNumber) {
 	await searchBookOwners(isbnNumber);
 }
+*/
 
 //Search book owners
 async function searchBookOwners(isbnNumber) {
@@ -388,11 +412,40 @@ async function fuk(isbnText, bookName) {
 }
 
 async function readImageAndUploadBookInfo(imageAddress, bookName) {
+	let isbnText = await getTextFromImage(imageAddress).catch({
+		errorCode: 2
+	});
+	await fuk(isbnText, bookName);
+	/*
 	getTextFromImage(imageAddress)
 		.then((isbnText) => {
 			fuk(isbnText, bookName);
 		})
-		.catch();
+		.catch(
+
+		);*/
+}
+
+//Add Book Info
+function addBookInfo(number, name) {
+	return new Promise(async (resolve) => {
+		console.log("ADDBOOKINFO RECEIVED: " + number);
+		const uploadingPostedData = new bookAdmin({
+			"isbnNumber": number,
+			"fileName": name
+		});
+		await uploadingPostedData.save()
+			.then(
+				data => {
+					console.log(data);
+					errorCode = 1;
+					resolve("The book uploaded successfully!");
+				})
+			.catch(err => {
+				console.log("SOMETHING WENT WRONG WHILE UPLOADING DATA TO THE DATABASE!: " + err);
+				errorCode = 2;
+			});
+	})
 }
 
 //Image Processing
@@ -420,30 +473,11 @@ function changeSystemDate(dayNumber) {
 	if (typeof dayNumber == "number") {
 		systemDate = new Date(systemDate.getFullYear(), systemDate.getMonth(), (systemDate.getDate() + dayNumber), 0, 0, 0);
 		console.log("NEW SYSTEM DATE!: " + systemDate);
+		return 1;
 	} else {
 		console.log("ERROR: dayNumber Variable is not a number!");
+		return 0;
 	}
-}
-
-
-//Add Book Info
-function addBookInfo(number, name) {
-	return new Promise(async (resolve) => {
-		console.log("ADDBOOKINFO RECEIVED: " + number);
-		const uploadingPostedData = new bookAdmin({
-			"isbnNumber": number,
-			"fileName": name
-		});
-		await uploadingPostedData.save()
-			.then(
-				data => {
-					console.log(data);
-					resolve("The book uploaded successfully!");
-				})
-			.catch(err => {
-				console.log("SOMETHING WENT WRONG WHILE UPLOADING DATA TO THE DATABASE!: " + err);
-			});
-	})
 }
 
 //Search Books
