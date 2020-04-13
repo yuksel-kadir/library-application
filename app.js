@@ -103,6 +103,7 @@ app.post('/assignBook', async (req, res) => {
 	console.log("ARANAN:" + query);
 	let regex = /[A-Za-z]/g;
 	const found = query.match(regex);
+	resetUserBookSettings();
 	//Checks if the string is a ISBN or a book name.
 	if (found) {
 		query = query.toLowerCase();
@@ -143,7 +144,6 @@ app.post('/assignBook', async (req, res) => {
 			}
 		});
 	}
-	resetUserBookSettings();
 	//res.redirect('/user');
 });
 
@@ -263,7 +263,7 @@ function resetUserBookSettings(){
 async function deleteBook(isbn){
 	console.log("SİL: " + isbn);
 	let control = await bookUser.find({"_id": loggedUser.id, "books.bookIsbn":isbn});
-	//console.log("control: " + control);
+	console.log("control: " + control);
 	//console.log(typeof isbn);
 	
 	if(control.length == 0){
@@ -271,7 +271,7 @@ async function deleteBook(isbn){
 		return 0;
 	}else{
 		let remove = await bookUser.findOneAndUpdate({"_id": loggedUser.id}, {$pull: {books:{bookIsbn:isbn}}},{new:true});
-		console.log(remove);
+		console.log("Silindikten sonra kullanıcı envanteri: " + remove);
 		return 1;
 	}
 	
@@ -466,7 +466,6 @@ async function getTextFromImage(address) {
 }
 
 //Creating Date Variable
-
 function changeSystemDate(dayNumber) {
 	//console.log("variable type: " + typeof dayNumber);
 	console.log("GÜN SAYISI:"+dayNumber);

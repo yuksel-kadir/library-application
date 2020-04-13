@@ -155,7 +155,7 @@
         }
       }
       formData.append("returnBookImage",imageFile.files[0]);
-      xhr.open('POST', '/return', true);
+      xhr.open('POST', '/return', false);
       xhr.send(formData);
     }
 
@@ -195,21 +195,25 @@
         xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
         xhr.onload = function(){
           let result = JSON.parse(this.responseText);
+          console.log(result);
+          console.log(typeof result.hasMoreThanThreeBooks);
           console.log("RES!: "+result.hasMoreThanThreeBooks,result.hasOutOfDateBook,result.someOneHasBook);
           let message = "";
-          if(result.hasMoreThanThreeBooks){
+          if(result.hasMoreThanThreeBooks == true){
               message += "3 kitaba sahipsiniz! Daha fazla kitap alamazsnız.\n";
-          }if(result.hasOutOfDateBook){
+          }if(result.hasOutOfDateBook == true){
               message += "İade tarihi geçmiş kitap veya kitaplarınız var! Kitapları iade ediniz.\n";
-          }if(result.someOneHasBook){
+          }if(result.someOneHasBook == true){
               message += "Kitap başkası tarafından alınmış!";
+          }if(message != ""){
+            alert(message);
           }
           if(result == ""){
             alert("Aradığınız kitap bulunamadı!");
           }else if(result == "error"){
             alert("Kitabı ararken bir şeyler ters gitti!");
           }else{
-            alert("Kitap envanterinize eklendi!");
+            alert("Kitap başarıyla envanterinize eklendi!");
           }
         }
         xhr.send(param);
