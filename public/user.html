@@ -147,11 +147,11 @@
       xhr.onload = function(){
         let result = JSON.parse(this.responseText);
         if(result == "0"){
-          alert("You don't own this book!");
+          alert("Bu kitaba sahip değilsiniz!");
         }else if(result == "1"){ 
-          alert("The book have returned to the library!");
+          alert("Kitap kütüphaneye iade edildi!");
         }else{
-          alert("unknown");
+          alert("Bilinmeyen");
         }
       }
       formData.append("returnBookImage",imageFile.files[0]);
@@ -174,9 +174,9 @@
           let result = JSON.parse(this.responseText);
           console.log("RES!: "+result);
           if(result == ""){
-            alert("Couldn't find the book you are looking for!");
+            alert("Aradığınız kitap bulunamadı!");
           }else{
-            alert("The book you are looking for is in the library! Bookinfo:"+result.bookname+" "+ "ISBN:" +" "+result.isbn);
+            alert("Aradığınız kitap kütüphanede mevcut!\Kitap Adı:"+result.bookname+ "\nISBN:" +" "+result.isbn);
           }
           
         }
@@ -198,18 +198,18 @@
           console.log("RES!: "+result.hasMoreThanThreeBooks,result.hasOutOfDateBook,result.someOneHasBook);
           let message = "";
           if(result.hasMoreThanThreeBooks){
-              message += "You have more 3 books already!\n";
+              message += "3 kitaba sahipsiniz! Daha fazla kitap alamazsnız.\n";
           }if(result.hasOutOfDateBook){
-              message += "You have some out of date books! You have to give it them first!\n";
+              message += "İade tarihi geçmiş kitap veya kitaplarınız var! Kitapları iade ediniz.\n";
           }if(result.someOneHasBook){
-              message += "You can't take this book! It is owned already!";
+              message += "Kitap başkası tarafından alınmış!";
           }
           if(result == ""){
-            alert("Couldn't find the book you are looking for!");
+            alert("Aradığınız kitap bulunamadı!");
           }else if(result == "error"){
-            alert("Something went wrong while searching the book!");
+            alert("Kitabı ararken bir şeyler ters gitti!");
           }else{
-            alert("Book added to your library!");
+            alert("Kitap envanterinize eklendi!");
           }
         }
         xhr.send(param);

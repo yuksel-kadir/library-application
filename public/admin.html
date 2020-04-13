@@ -138,11 +138,11 @@
       xhr.onload = function () {
         let result = JSON.parse(this.responseText);
         if (result == "0") {
-          alert("Something went wrong while uploading the ISBN photo!");
+          alert("ISBN fotoğrafını upload ederken bir şeyler ters gitti!");
         } else if (result == "2") {
-          alert("Something went wrong while saving the book to the database!");
+          alert("Kitabı veri tabanına kaydederken bir şeyler ters gitti!");
         } else if (result == "1") {
-          alert("Book uploaded successfully!");
+          alert("Kitap başarıyla veri tabanına eklendi!");
         }
       }
       xhr.open('POST', '/admin', true);
@@ -161,9 +161,9 @@
       xhr.onload = function () {
         let result = JSON.parse(this.responseText);
         if (result == "0") {
-          alert("Something went wrong while changing the system date!");
+          alert("Sistem tarihini değiştirirken bir şeyler ters gitti!");
         } else {
-          alert("System date updated!\nNew Date: " + result);
+          alert("Sistem tarihi güncellendi!\nYeni sistem tarihi: " + result);
         }
       }
       xhr.open('POST', '/setDate', false);
@@ -184,7 +184,7 @@
           var users = JSON.parse(this.responseText);
           console.log(users.length);
           console.log(users);
-          let keys = ["#", "Username", "Book Isbn", "Book Issue", "Book Due Date"];
+          let keys = ["#", "Kullanıcı Adı", "Kitap ISBN", "Veriliş Tarihi", "İade Tarihi"];
           let table = document.getElementById("table1");
           table.innerHTML = "";
           let thead = table.createTHead();
