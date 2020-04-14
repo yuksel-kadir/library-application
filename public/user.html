@@ -95,7 +95,7 @@
             <div style="margin-bottom:25%"></div>
             <input type="file" name="returnBookImage" class="custom-file-input" id="returnImageInput" class="d-block mb-5 caption" style="color:orange;" data-aos="fade-up" data-aos-delay="300" required single>
             <div style="margin-bottom:10%;margin-top: 11%"></div>
-            <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span style="font-family:Segoe UI Symbol;">Kitap Ver</span></button>
+            <button type="submit" class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="imageButton"><span style="font-family:Segoe UI Symbol;">Kitap Ver</span></button>
             <!--<a href="#" class="btn-custom" data-aos="fade-up" data-aos-delay="400"><span>Kitap Ver</span></a>-->
             <div style="padding-top: 0%"></div>
           </form>
@@ -140,11 +140,15 @@
     document.getElementById("userIsbnUploadForm").addEventListener('submit', imageUpload);
     function imageUpload(e){
       e.preventDefault();
+      document.getElementById("imageButton").disabled = true;
+      document.body.style.cursor = 'wait';
       let imageFile = document.getElementById("returnImageInput");
       console.log("tttttt:" + imageFile.files[0]);
       const xhr = new XMLHttpRequest();
       const formData = new FormData();
       xhr.onload = function(){
+        document.getElementById("imageButton").disabled = false;
+        document.body.style.cursor = 'default';
         let result = JSON.parse(this.responseText);
         if(result == "0"){
           alert("Bu kitaba sahip değilsiniz!");
@@ -155,11 +159,11 @@
         }
       }
       formData.append("returnBookImage",imageFile.files[0]);
-      xhr.open('POST', '/return', false);
+      xhr.open('POST', '/return', true);
       xhr.send(formData);
     }
 
-    //Book Search  document.getElementById('submitButton').addEventListener('click', getBookInfo);
+    //Book Search
     document.getElementById('userSearch').addEventListener('submit', getBookInfo);
     function getBookInfo(e){
       e.preventDefault();
@@ -176,7 +180,7 @@
           if(result == ""){
             alert("Aradığınız kitap bulunamadı!");
           }else{
-            alert("Aradığınız kitap kütüphanede mevcut!\Kitap Adı:"+result.bookname+ "\nISBN:" +" "+result.isbn);
+            alert("Aradığınız kitap kütüphanede mevcut!\nKitap Adı: "+result.bookname+ "\nISBN:" +" "+result.isbn);
           }
           
         }

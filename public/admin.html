@@ -81,7 +81,7 @@
             <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300" style="font-family:Segoe UI Symbol;">Gün Sayısını Giriniz</span>
             <input class="d-block mb-5 caption" type="number" style="color:black" data-aos="fade-up"
               data-aos-delay="300" name="dayNumber" id="bookDay" min="1" required>
-            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton" type="submit"><span style="font-family:Segoe UI Symbol;">Gün
+            <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitDay" type="submit"><span style="font-family:Segoe UI Symbol;">Gün
                 Ötele</span></button>
           </form>
         </div>
@@ -127,6 +127,9 @@
     document.getElementById("addBook").addEventListener('submit', uploadBookForm);
     function uploadBookForm(e) {
       e.preventDefault();
+      console.log("hmm");
+      document.getElementById("submitButton").disabled = true;
+      document.body.style.cursor = 'wait';
       let book = document.getElementById("bookName").value;
       console.log("book:" + book);
       let bookPhoto = document.getElementById("returnImageInput");
@@ -136,6 +139,8 @@
       data.append("bookImage", bookPhoto.files[0]);
       const xhr = new XMLHttpRequest();
       xhr.onload = function () {
+        document.body.style.cursor = 'default';
+        document.getElementById("submitButton").disabled = false;
         let result = JSON.parse(this.responseText);
         if (result == "0") {
           alert("ISBN fotoğrafını upload ederken bir şeyler ters gitti!");
@@ -153,11 +158,16 @@
     document.getElementById("setDate").addEventListener('submit', uploadDayNumber);
     function uploadDayNumber(e) {
       e.preventDefault();
+      document.getElementById("submitDay").disabled = true;
+      document.body.style.cursor = 'wait';
       let number = document.getElementById("bookDay").value;
       console.log("dayNumber:" + number);
       let data = new FormData();
       data.append("dayNumber", number);
       const xhr = new XMLHttpRequest();
+      xhr.onprogress = function(){
+        document.body.style.cursor = 'wait';
+      }
       xhr.onload = function () {
         let result = JSON.parse(this.responseText);
         if (result == "0") {

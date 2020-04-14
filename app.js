@@ -182,13 +182,13 @@ app.post('/userSearch', async (req, res) => {
 			} else {
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
-				obj = {bookname:data[0].fileName, id:data[0]._id, isbn:data[0].isbnNumber}
+				obj = {bookname:data[0].fileName, id:data[0]._id, isbn:data[0].isbnNumber};
 				result = JSON.stringify(obj);
-				console.log("SONUÇ:" + result);
+				//console.log("SONUÇ:" + result);
 			}
 		});
 	} else {
-		const doc = bookAdmin.find({ isbnNumber: query }, function (err, data) {
+		const doc = await bookAdmin.find({ isbnNumber: query }, function (err, data) {
 			if (err) {
 				console.log("ISBN ARANIRKEN BİR ŞEYLER TERS GİTTİ!: ", err);
 			} else if (data.length == 0) {
@@ -196,9 +196,13 @@ app.post('/userSearch', async (req, res) => {
 			} else {
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı"+":" + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
+				obj = {bookname:data[0].fileName, id:data[0]._id, isbn:data[0].isbnNumber};
+				result = JSON.stringify(obj);
+				//console.log("SONUÇ:" + result);
 			}
 		});
 	}
+	//console.log("OBJ: " + obj);
 	res.json(obj);
 });
 
@@ -276,13 +280,6 @@ async function deleteBook(isbn){
 	}
 	
 }
-
-//Book Handling. Decide whether the user is going to take book for the first time or not.
-/*
-async function assignBook(isbnNumber) {
-	await searchBookOwners(isbnNumber);
-}
-*/
 
 //Search book owners
 async function searchBookOwners(isbnNumber) {
