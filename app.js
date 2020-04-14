@@ -166,7 +166,7 @@ app.post('/setDate', (req, res) => {
 app.post('/userSearch', async (req, res) => {
 
 	let query = req.body.queryvar;
-	console.log("QUERY:"+query);
+	//console.log("QUERY:"+query);
 	let regex = /[A-Za-z]/g;
 	const found = query.match(regex);
 	let obj = "";
