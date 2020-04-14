@@ -211,7 +211,7 @@ app.post('/login', async (req, res) => {
 	let password = req.body.password;
 	let userid = await findUser(username, password);
 	if (userid == "none") {
-		res.json("WRONG PASSWORD OR USERNAME!");
+		res.redirect('/login');
 	}
 	if (loggedUser.mode == "user") {
 		console.log("GİRİŞ YAPAN:" + loggedUser.id + " " + loggedUser.username);
