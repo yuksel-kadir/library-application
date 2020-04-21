@@ -453,9 +453,17 @@ async function getTextFromImage(address) {
 	await worker.initialize('eng')
 
 	const { data: { text } } = await worker.recognize(address);
-	//Parsing the text
-	let temporaryText = text.split("\n")[0];
-	let text2 = temporaryText.replace("ISBN ", "");
+	let temporaryText = text.split("\n");
+	//console.log(temporaryText);
+	let searchIndex = -1;
+	for(let m=0; m<temporaryText.length;m++){
+		let varo = temporaryText[m];
+		if(varo.includes("ISBN")){
+			console.log("INDEX: " + m + " TEXT: " + temporaryText[m]);
+			searchIndex = m;
+		}
+	}
+	let text2 = temporaryText[searchIndex].replace("ISBN ", "");
 	temporaryText = text2.replace(/-/g, "");
 	await worker.terminate()
 
