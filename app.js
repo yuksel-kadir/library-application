@@ -13,10 +13,10 @@ let loggedUser = {
 	id: "",
 	username: "",
 	mode: "",
-	logged :false,
-	hasMoreThanThreeBooks:false,
-	hasOutOfDateBook:false,
-	someOneHasBook:false
+	logged: false,
+	hasMoreThanThreeBooks: false,
+	hasOutOfDateBook: false,
+	someOneHasBook: false
 }
 
 //const worker = createWorker();
@@ -29,7 +29,7 @@ mongoose.connect("mongodb://locaLhost:27017/library", {
 });
 const PORT = process.env.PORT || 5000;
 const address = path.join(__dirname, "public/");
-console.log("ADRES: "+address);
+console.log("ADRES: " + address);
 mongoose.connection
 	.once('open', () => {
 		console.log('Kütüphane veri tabanına bağlanıldı.');
@@ -44,21 +44,47 @@ mongoose.connection
 //app.use(express.urlencoded({extended:false}));
 app.use(fileUpload());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(express.urlencoded({extended:true}));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
-app.get('/getUsers', async(req, res) => {
+app.get('/getUsers', async (req, res) => {
 	//Listing Users
 	const ress = await bookUser.find();
-	res.json(ress);
+	const userlist = await users.find();
+	console.log(typeof ress);
+	let obj1;
+	let obj2;
+	let obj3 = [];
+	for (let i = 0; i < ress.length; i++) {
+		for (let m = 0; m < userlist.length; m++) {
+			obj1 = userlist[m].toObject();
+			obj2 = ress[i].toObject();
+			//console.log("obj2: " + obj2);
+			let a = String(obj1._id);
+			let b = String(obj2._id);
+			//console.log(obj1._id + " " + obj2._id);
+			if (a == b) {
+				//console.log(1);
+				//console.log("İSİM: " + obj1.username);
+				let c = String(obj1.username);
+				obj2._id = c;
+				//console.log("İSİM:2 " + obj2._id);
+				obj3.push(obj2);
+				break;
+			}
+		}
+	}
+	//obj2 = ress[0].toObject();
+	//console.log("MEH: " + obj3);
+	res.json(obj3);
 });
 
-app.get('/', (req, res) => {    
-	if(loggedUser.mode == "admin"){
+app.get('/', (req, res) => {
+	if (loggedUser.mode == "admin") {
 		res.redirect('/admin');
-	}else if(loggedUser.mode == "user"){
+	} else if (loggedUser.mode == "user") {
 		res.redirect('/user');
-	}else if(loggedUser.mode == ""){
+	} else if (loggedUser.mode == "") {
 		res.redirect("/login");
 	}
 });
@@ -66,12 +92,12 @@ app.get('/', (req, res) => {
 //req = request, res = response
 app.get('/admin', (req, res) => {
 	//					&& loggedUser.mode != admin
-	if(loggedUser.logged != true){
+	if (loggedUser.logged != true) {
 		res.redirect("/login");
-	}else if(loggedUser.mode != "admin"){
+	} else if (loggedUser.mode != "admin") {
 		res.redirect('/user');
 	}
-	else if(loggedUser.mode=="admin"){
+	else if (loggedUser.mode == "admin") {
 		res.sendFile(address + 'admin.html');
 	}
 });
@@ -81,15 +107,15 @@ app.get('/getUserName', (req, res) => {
 });
 
 app.get('/user', (req, res) => {
-	if(loggedUser.logged != true){
+	if (loggedUser.logged != true) {
 		res.redirect("/login");
-	}else if(loggedUser.mode != "user"){
+	} else if (loggedUser.mode != "user") {
 		res.redirect('/admin');
 	}
-	else if(loggedUser.mode == "user"){
+	else if (loggedUser.mode == "user") {
 		res.sendFile(address + 'user.html');
 	}
-		//res.sendFile(address + 'login.html');
+	//res.sendFile(address + 'login.html');
 });
 
 app.get('/login', (req, res) => {
@@ -120,7 +146,7 @@ app.post('/assignBook', async (req, res) => {
 				//assignBook(data[0].isbnNumber);
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
-				obj = {hasMoreThanThreeBooks:loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook:loggedUser.hasOutOfDateBook,someOneHasBook:loggedUser.someOneHasBook}
+				obj = { hasMoreThanThreeBooks: loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook: loggedUser.hasOutOfDateBook, someOneHasBook: loggedUser.someOneHasBook }
 				result = JSON.stringify(obj);
 				res.json(obj);
 			}
@@ -138,7 +164,7 @@ app.post('/assignBook', async (req, res) => {
 				//assignBook(data[0].isbnNumber);
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
-				obj = {hasMoreThanThreeBooks:loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook:loggedUser.hasOutOfDateBook,someOneHasBook:loggedUser.someOneHasBook}
+				obj = { hasMoreThanThreeBooks: loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook: loggedUser.hasOutOfDateBook, someOneHasBook: loggedUser.someOneHasBook }
 				result = JSON.stringify(obj);
 				res.json(obj);
 			}
@@ -150,11 +176,11 @@ app.post('/assignBook', async (req, res) => {
 app.post('/setDate', (req, res) => {
 	let day = parseInt(req.body.dayNumber);
 	let state = changeSystemDate(day);
-	if(state == 0){
+	if (state == 0) {
 		console.log("TARİHİ DEĞİŞTİRİRKEN HATA MEYDANA GELDİ!");
 		res.json(0);
-	}else{
-		let str = systemDate.getDate() + " " + (systemDate.getMonth()+1)+" "+systemDate.getUTCFullYear();
+	} else {
+		let str = systemDate.getDate() + " " + (systemDate.getMonth() + 1) + " " + systemDate.getUTCFullYear();
 		//console.log(str);
 		//console.log(JSON.stringify(str));
 		res.json(str);
@@ -182,7 +208,7 @@ app.post('/userSearch', async (req, res) => {
 			} else {
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
-				obj = {bookname:data[0].fileName, id:data[0]._id, isbn:data[0].isbnNumber};
+				obj = { bookname: data[0].fileName, id: data[0]._id, isbn: data[0].isbnNumber };
 				result = JSON.stringify(obj);
 				//console.log("SONUÇ:" + result);
 			}
@@ -195,8 +221,8 @@ app.post('/userSearch', async (req, res) => {
 				console.log("KAYIT BULUNAMADI!");
 			} else {
 				console.log("ARADIĞINIZ: " + query);
-				console.log("Kitap Adı"+":" + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
-				obj = {bookname:data[0].fileName, id:data[0]._id, isbn:data[0].isbnNumber};
+				console.log("Kitap Adı" + ":" + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
+				obj = { bookname: data[0].fileName, id: data[0]._id, isbn: data[0].isbnNumber };
 				result = JSON.stringify(obj);
 				//console.log("SONUÇ:" + result);
 			}
@@ -247,38 +273,38 @@ app.post('/admin', (req, res) => {
 	//res.redirect("/admin");
 });
 
-app.post('/return', async(req, res) => {
+app.post('/return', async (req, res) => {
 	let imageFile = req.files.returnBookImage;
 	console.log("Resim dosyasının adı: " + imageFile.name);
 	//console.log("Image object: " + imageFile.tempFilePath);
 	let bleagh = await getTextFromImage(imageFile.data);
-	let status  = await deleteBook(bleagh);
+	let status = await deleteBook(bleagh);
 	res.json(status);
 });
 
 app.listen(PORT, () => console.log(`Sunucu ${PORT} portunda başlatıldı!`));
 
-function resetUserBookSettings(){
+function resetUserBookSettings() {
 	loggedUser.hasMoreThanThreeBooks = false;
 	loggedUser.hasOutOfDateBook = false;
 	loggedUser.someOneHasBook = false;
 }
 
-async function deleteBook(isbn){
+async function deleteBook(isbn) {
 	console.log("SİL: " + isbn);
-	let control = await bookUser.find({"_id": loggedUser.id, "books.bookIsbn":isbn});
+	let control = await bookUser.find({ "_id": loggedUser.id, "books.bookIsbn": isbn });
 	console.log("control: " + control);
 	//console.log(typeof isbn);
-	
-	if(control.length == 0){
+
+	if (control.length == 0) {
 		console.log("Kitaba sahip olmadığınız için geri veremezsiniz!");
 		return 0;
-	}else{
-		let remove = await bookUser.findOneAndUpdate({"_id": loggedUser.id}, {$pull: {books:{bookIsbn:isbn}}},{new:true});
+	} else {
+		let remove = await bookUser.findOneAndUpdate({ "_id": loggedUser.id }, { $pull: { books: { bookIsbn: isbn } } }, { new: true });
 		console.log("Silindikten sonra kullanıcı envanteri: " + remove);
 		return 1;
 	}
-	
+
 }
 
 //Search book owners
@@ -290,39 +316,39 @@ async function searchBookOwners(isbnNumber) {
 	if (res == null) {
 		console.log("COLLECTION YOK!: " + res);
 		await firstAssignment();
-			canTakeBook = await whoHasTheBook(isbnNumber);
-			if(canTakeBook){
-				await addBook(isbnNumber);
-			}else{
-				//if canTakeBook is false then user can't take book. Because someone else owns the book.
-				loggedUser.someOneHasBook = true;
-			}
-	}else if (res.books.length == 0) {
+		canTakeBook = await whoHasTheBook(isbnNumber);
+		if (canTakeBook) {
+			await addBook(isbnNumber);
+		} else {
+			//if canTakeBook is false then user can't take book. Because someone else owns the book.
+			loggedUser.someOneHasBook = true;
+		}
+	} else if (res.books.length == 0) {
 		console.log("KİTAP DİZİSİ BOŞ!" + res);
-			canTakeBook = await whoHasTheBook(isbnNumber);
-			if(canTakeBook){
-				await addBook(isbnNumber);
-			}else{
-				//if canTakeBook is false then user can't take book. Because someone else owns the book.
-				loggedUser.someOneHasBook = true;
-			}
-	}else if (res.books.length != 0) {
+		canTakeBook = await whoHasTheBook(isbnNumber);
+		if (canTakeBook) {
+			await addBook(isbnNumber);
+		} else {
+			//if canTakeBook is false then user can't take book. Because someone else owns the book.
+			loggedUser.someOneHasBook = true;
+		}
+	} else if (res.books.length != 0) {
 		//console.log("res.books.length: " +res.books.length);
 		outoOfDateBook = await searchOutOfDateBook();
-		if(outoOfDateBook){
+		if (outoOfDateBook) {
 			canTakeBook = await whoHasTheBook(isbnNumber);
-			if(canTakeBook){
-				if(res.books.length >= 3){
+			if (canTakeBook) {
+				if (res.books.length >= 3) {
 					console.log("Zaten 3 kitaba sahipsiniz! Daha fazla kitap alamazsınız!");
 					loggedUser.hasMoreThanThreeBooks = true;
 					return;
-				}else{
+				} else {
 					await addBook(isbnNumber);
 				}
-			}else{
+			} else {
 				loggedUser.someOneHasBook = true;
 			}
-		}else{
+		} else {
 			loggedUser.hasOutOfDateBook = true;
 		}
 	}
@@ -334,14 +360,14 @@ async function searchOutOfDateBook() {
 	console.log(res);
 	console.log(res[0].books.length);
 	for (let m = 0; m < res[0].books.length; m++) {
-		let anotherBottleDown = res[0].books[m].bookDate
-		console.log(typeof anotherBottleDown);
+		//let anotherBottleDown = res[0].books[m].bookDate
+		//console.log(typeof anotherBottleDown);
 		console.log("Sistem Tarihi: " + systemDate);
 		console.log("İade Tarihi: " + res[0].books[m].returnDate);
-		console.log(res[0].books[m].returnDate.getDate());
-		console.log(res[0].books[m].returnDate.getMonth());
-		console.log(res[0].books[m].returnDate.getFullYear());
-		console.log(Math.floor((res[0].books[m].returnDate - systemDate) / (24 * 60 * 60 * 1000)));
+		//console.log(res[0].books[m].returnDate.getDate());
+		//console.log(res[0].books[m].returnDate.getMonth());
+		//console.log(res[0].books[m].returnDate.getFullYear());
+		//console.log(Math.floor((res[0].books[m].returnDate - systemDate) / (24 * 60 * 60 * 1000)));
 		let dayDiff = Math.floor((Date.UTC(res[0].books[m].returnDate.getFullYear(), res[0].books[m].returnDate.getMonth(), res[0].books[m].returnDate.getDate()) - Date.UTC(systemDate.getFullYear(), systemDate.getMonth(), systemDate.getDate())) / (1000 * 60 * 60 * 24));
 		console.log("Gün Farkı: " + dayDiff);
 		if (dayDiff < 0) {
@@ -374,7 +400,7 @@ async function whoHasTheBook(isbn) {
 async function addBook(isbnNumber) {
 	let day = systemDate.getDate() + 7;
 	let assigningDate = new Date(systemDate.getFullYear(), systemDate.getMonth(), day, 0, 0, 0, 0);
-	let book = { "bookIsbn": isbnNumber, "bookDate":systemDate,"returnDate": assigningDate };
+	let book = { "bookIsbn": isbnNumber, "bookDate": systemDate, "returnDate": assigningDate };
 	await bookUser.findOneAndUpdate({ _id: loggedUser.id }, { $push: { books: book } })
 		.catch((err) => {
 			console.log(err);
@@ -456,9 +482,9 @@ async function getTextFromImage(address) {
 	let temporaryText = text.split("\n");
 	//console.log(temporaryText);
 	let searchIndex = -1;
-	for(let m=0; m<temporaryText.length;m++){
+	for (let m = 0; m < temporaryText.length; m++) {
 		let varo = temporaryText[m];
-		if(varo.includes("ISBN")){
+		if (varo.includes("ISBN")) {
 			console.log("INDEX: " + m + " TEXT: " + temporaryText[m]);
 			searchIndex = m;
 		}
@@ -473,7 +499,7 @@ async function getTextFromImage(address) {
 //Creating Date Variable
 function changeSystemDate(dayNumber) {
 	//console.log("variable type: " + typeof dayNumber);
-	console.log("GÜN SAYISI:"+dayNumber);
+	console.log("GÜN SAYISI:" + dayNumber);
 	if (typeof dayNumber == "number") {
 		systemDate = new Date(systemDate.getFullYear(), systemDate.getMonth(), (systemDate.getDate() + dayNumber), 0, 0, 0);
 		console.log("YENİ SİSTEM TARİHİ!: " + systemDate);

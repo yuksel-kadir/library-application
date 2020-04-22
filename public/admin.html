@@ -192,8 +192,10 @@
       xhr.onload = function () {
         if (this.status == 200) {
           var users = JSON.parse(this.responseText);
-          console.log(users.length);
-          console.log(users);
+          //var users = JSON.stringify(users);
+          console.log(typeof users);
+          console.log("userslength: " + users.length);
+          console.log("users: " + users);
           let keys = ["#", "Kullanıcı Adı", "Kitap ISBN", "Veriliş Tarihi", "İade Tarihi"];
           let table = document.getElementById("table1");
           table.innerHTML = "";

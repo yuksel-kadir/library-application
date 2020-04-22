@@ -216,9 +216,10 @@
             alert("Aradığınız kitap bulunamadı!");
           }else if(result == "error"){
             alert("Kitabı ararken bir şeyler ters gitti!");
-          }else{
+          }else if(message == ""){
             alert("Kitap başarıyla envanterinize eklendi!");
           }
+          message = "";
         }
         xhr.send(param);
     }
