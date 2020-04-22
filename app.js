@@ -133,7 +133,7 @@ app.post('/assignBook', async (req, res) => {
 	//Checks if the string is a ISBN or a book name.
 	if (found) {
 		query = query.toLowerCase();
-		console.log(query);
+		//console.log(query);
 		const doc = await bookAdmin.find({ fileName: query }, async function (err, data) {
 			if (err) {
 				console.log("KİTAP ADINI ARARKEN BİR ŞEYLER TERS GİTTİ!: ", err);
@@ -147,7 +147,7 @@ app.post('/assignBook', async (req, res) => {
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
 				obj = { hasMoreThanThreeBooks: loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook: loggedUser.hasOutOfDateBook, someOneHasBook: loggedUser.someOneHasBook }
-				result = JSON.stringify(obj);
+				//result = JSON.stringify(obj);
 				res.json(obj);
 			}
 		});
@@ -165,7 +165,7 @@ app.post('/assignBook', async (req, res) => {
 				console.log("ARADIĞINIZ: " + query);
 				console.log("Kitap Adı: " + data[0].fileName + " ID: " + data[0]._id + " ISBN: " + data[0].isbnNumber);
 				obj = { hasMoreThanThreeBooks: loggedUser.hasMoreThanThreeBooks, hasOutOfDateBook: loggedUser.hasOutOfDateBook, someOneHasBook: loggedUser.someOneHasBook }
-				result = JSON.stringify(obj);
+				//result = JSON.stringify(obj);
 				res.json(obj);
 			}
 		});
@@ -304,7 +304,6 @@ async function deleteBook(isbn) {
 		console.log("Silindikten sonra kullanıcı envanteri: " + remove);
 		return 1;
 	}
-
 }
 
 //Search book owners
@@ -318,7 +317,11 @@ async function searchBookOwners(isbnNumber) {
 		await firstAssignment();
 		canTakeBook = await whoHasTheBook(isbnNumber);
 		if (canTakeBook) {
-			await addBook(isbnNumber);
+			let bkn = await bookAdmin.find({"isbnNumber":isbnNumber});
+			let varb = bkn[0].fileName;
+					console.log("varbtype: "+typeof varb);
+					console.log("BKN:" + bkn[0].fileName);
+					await addBook(isbnNumber, varb);
 		} else {
 			//if canTakeBook is false then user can't take book. Because someone else owns the book.
 			loggedUser.someOneHasBook = true;
@@ -327,7 +330,11 @@ async function searchBookOwners(isbnNumber) {
 		console.log("KİTAP DİZİSİ BOŞ!" + res);
 		canTakeBook = await whoHasTheBook(isbnNumber);
 		if (canTakeBook) {
-			await addBook(isbnNumber);
+			let bkn = await bookAdmin.find({"isbnNumber":isbnNumber});
+			let varb = bkn[0].fileName;
+					console.log("varbtype: "+typeof varb);
+					console.log("BKN:" + bkn[0].fileName);
+					await addBook(isbnNumber, varb);
 		} else {
 			//if canTakeBook is false then user can't take book. Because someone else owns the book.
 			loggedUser.someOneHasBook = true;
@@ -343,7 +350,11 @@ async function searchBookOwners(isbnNumber) {
 					loggedUser.hasMoreThanThreeBooks = true;
 					return;
 				} else {
-					await addBook(isbnNumber);
+					let bkn = await bookAdmin.find({"isbnNumber":isbnNumber});
+					let varb = bkn[0].fileName;
+					console.log("varbtype: "+typeof varb);
+					console.log("BKN:" + bkn[0].fileName);
+					await addBook(isbnNumber, varb);
 				}
 			} else {
 				loggedUser.someOneHasBook = true;
@@ -397,10 +408,10 @@ async function whoHasTheBook(isbn) {
 	}
 }
 
-async function addBook(isbnNumber) {
+async function addBook(isbnNumber, name) {
 	let day = systemDate.getDate() + 7;
 	let assigningDate = new Date(systemDate.getFullYear(), systemDate.getMonth(), day, 0, 0, 0, 0);
-	let book = { "bookIsbn": isbnNumber, "bookDate": systemDate, "returnDate": assigningDate };
+	let book = { "bookIsbn": isbnNumber, "bookname": name,"bookDate": systemDate, "returnDate": assigningDate };
 	await bookUser.findOneAndUpdate({ _id: loggedUser.id }, { $push: { books: book } })
 		.catch((err) => {
 			console.log(err);

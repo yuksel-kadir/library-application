@@ -196,7 +196,7 @@
           console.log(typeof users);
           console.log("userslength: " + users.length);
           console.log("users: " + users);
-          let keys = ["#", "Kullanıcı Adı", "Kitap ISBN", "Veriliş Tarihi", "İade Tarihi"];
+          let keys = ["#", "Kullanıcı Adı", "Kitap Adı","Kitap ISBN", "Veriliş Tarihi", "İade Tarihi"];
           let table = document.getElementById("table1");
           table.innerHTML = "";
           let thead = table.createTHead();
@@ -219,16 +219,19 @@
               row = table.insertRow();
               cell1 = row.insertCell();
               cell2 = row.insertCell();
+              cell = row.insertCell();
               cell3 = row.insertCell();
               cell4 = row.insertCell();
               cell5 = row.insertCell();
               let text1 = document.createTextNode(count);
               let text2 = document.createTextNode(users[i]._id);
+              let text = document.createTextNode(users[i].books[m].bookname);
               let text3 = document.createTextNode(users[i].books[m].bookIsbn);
               let text4 = document.createTextNode(formattedDate);
               let text5 = document.createTextNode(formattedDate2);
               cell1.appendChild(text1);
               cell2.appendChild(text2);
+              cell.appendChild(text);
               cell3.appendChild(text3);
               cell4.appendChild(text4);
               cell5.appendChild(text5);
