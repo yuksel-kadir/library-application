@@ -167,7 +167,7 @@
     document.getElementById('userSearch').addEventListener('submit', getBookInfo);
     function getBookInfo(e){
       e.preventDefault();
-        let bookInfo = document.getElementById("bookSearch").value;
+        let bookInfo = document.getElementById("bookSearch").value.toLowerCase();
         let param = 'queryvar='+bookInfo;
         bookInfo.value = "";
         //console.log(param);
@@ -208,7 +208,7 @@
           }if(result.hasOutOfDateBook == true){
               message += "İade tarihi geçmiş kitap veya kitaplarınız var! Kitapları iade ediniz.\n";
           }if(result.someOneHasBook == true){
-              message += "Kitap başkası tarafından alınmış!";
+              message += "Kitap alınmış!";
           }if(message != ""){
             alert(message);
           }

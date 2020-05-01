@@ -123,7 +123,7 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/assignBook', async (req, res) => {
-	let query = req.body.bookInfo;
+	let query = req.body.bookInfo.toLowerCase();
 	let obj = "";
 	let result = "";
 	console.log("ARANAN:" + query);
@@ -139,7 +139,8 @@ app.post('/assignBook', async (req, res) => {
 				console.log("KİTAP ADINI ARARKEN BİR ŞEYLER TERS GİTTİ!: ", err);
 				res.json("error");
 			} else if (data.length == 0) {
-				console.log("KİTAP BULUNAMADI!");
+				console.log("KİTAP BULUNAMADI!\n" + data[0]);
+				console.log("/ASSIGNBOOK NORMAL QUERY");
 				res.json(obj);
 			} else {
 				await searchBookOwners(data[0].isbnNumber);
@@ -157,7 +158,8 @@ app.post('/assignBook', async (req, res) => {
 				console.log("ISBN ARARKEN BİR ŞEYLER TERS GİTTİ!: ", err);
 				res.json("error");
 			} else if (data.length == 0) {
-				console.log("KİTAP BULUNAMADI!");
+				console.log("KİTAP BULUNAMADI!\n" + data[0]);
+				console.log("/ASSIGNBOOK ISBN QUERY");
 				res.json(obj);
 			} else {
 				await searchBookOwners(data[0].isbnNumber);
@@ -191,9 +193,9 @@ app.post('/setDate', (req, res) => {
 
 app.post('/userSearch', async (req, res) => {
 
-	let query = req.body.queryvar;
+	let query = req.body.queryvar.toLowerCase();
 	//console.log("QUERY:"+query);
-	let regex = /[A-Za-z]/g;
+	let regex = /[\ö\ü\Ö\ÜA-Za-z]/g;
 	const found = query.match(regex);
 	let obj = "";
 	let result = "";
@@ -204,6 +206,7 @@ app.post('/userSearch', async (req, res) => {
 			if (err) {
 				console.log("KİTAP ADINI ARARKEN BİR ŞEYLER TERS GİTTİ!!: ", err);
 			} else if (data.length == 0) {
+				console.log("/USERSEARCH NORMAL QUERY");
 				console.log("KAYIT BULUNMADI!!");
 			} else {
 				console.log("ARADIĞINIZ: " + query);
@@ -218,6 +221,7 @@ app.post('/userSearch', async (req, res) => {
 			if (err) {
 				console.log("ISBN ARANIRKEN BİR ŞEYLER TERS GİTTİ!: ", err);
 			} else if (data.length == 0) {
+				console.log("/USERSEARCH ISBN QUERY");
 				console.log("KAYIT BULUNAMADI!");
 			} else {
 				console.log("ARADIĞINIZ: " + query);
@@ -278,6 +282,7 @@ app.post('/return', async (req, res) => {
 	let imageFile = req.files.returnBookImage;
 	console.log("Resim dosyasının adı: " + imageFile.name);
 	//console.log("Image object: " + imageFile.tempFilePath);
+	console.log("Resim üzerinden ISBN okunuyor...");
 	let bleagh = await getTextFromImage(imageFile.data);
 	let status = await deleteBook(bleagh);
 	res.json(status);
@@ -320,8 +325,8 @@ async function searchBookOwners(isbnNumber) {
 		if (canTakeBook) {
 			let bkn = await bookAdmin.find({"isbnNumber":isbnNumber});
 			let varb = bkn[0].fileName;
-					console.log("varbtype: "+typeof varb);
-					console.log("BKN:" + bkn[0].fileName);
+					//console.log("varbtype: "+typeof varb);
+					//console.log("BKN:" + bkn[0].fileName);
 					await addBook(isbnNumber, varb);
 		} else {
 			//if canTakeBook is false then user can't take book. Because someone else owns the book.
@@ -418,7 +423,7 @@ async function addBook(isbnNumber, name) {
 			console.log(err);
 		});
 	console.log("Kitap Veriliş Tarihi: " + assigningDate);
-	console.log("Eski Sistem Tarihi: " + systemDate);
+	console.log("Sistem Tarihi: " + systemDate);
 }
 
 //If user can't be found on the database this function is called. And user is added.
@@ -504,7 +509,7 @@ async function getTextFromImage(address) {
 	}
 	let text2 = temporaryText[searchIndex].replace("ISBN ", "");
 	//temporaryText = text2.replace(/-/g, "");
-	temporaryText = text2.replace(/[\!\"\#\$\%\&\'\(\)\*\+\,\-\:\;\<\=\>\?\@\[\]\^\_\`\{\|\}\~a-zA-Z/-]/g, "");
+	temporaryText = text2.replace(/[\!\"\#\$\%\&\'\(\)\*\+\,\ \- \.\:\;\<\=\>\?\@\[\]\^\_\`\{\|\}\~a-zA-Z/-]/g, "");
 	await worker.terminate()
 
 	return temporaryText;
