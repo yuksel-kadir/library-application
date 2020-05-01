@@ -498,6 +498,7 @@ async function getTextFromImage(address) {
 		if (varo.includes("ISBN")) {
 			console.log("INDEX: " + m + " TEXT: " + temporaryText[m]);
 			searchIndex = m;
+			break;
 		}
 	}
 	let text2 = temporaryText[searchIndex].replace("ISBN ", "");
