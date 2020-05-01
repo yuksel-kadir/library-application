@@ -82,37 +82,6 @@
 			var x = document.getElementById("password");
             x.type == "password";
 		});
-		/*/
-		document.getElementById('login').addEventListener('submit', function(e){
-			e.preventDefault();
-			let username = document.getElementById("username").value;
-			let password = document.getElementById("password").value;
-			const xhr = new XMLHttpRequest();
-			xhr.onload = function(){
-				let result;
-				//let result = JSON.parse(this.responseText);
-				if(result == "0"){
-					alert("Yanlış kullanıcı adı veya şifre girdiniz!");
-				}
-			}
-			let formData = new FormData();
-			formData.append("username", username);
-			formData.append("password", password);
-			xhr.open('POST', '/login', true);
-			xhr.send(formData);
-		});
-		function reloading(){
-            var x = document.getElementById("password");
-            x.type == "password";
-        }
-        function foo() {
-            var x = document.getElementById("password");
-            if (x.type == "password") {
-                x.type = "text";
-            } else {
-                x.type = "password";
-            }
-        }
 	</script>
 </body>
 </html>
