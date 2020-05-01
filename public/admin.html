@@ -92,8 +92,8 @@
         <div class="col-md-10" style="left:15%;margin-bottom:50%;width:30%">
           <form id="userSearch" method="POST" action="/userSearch" enctype="multipart/form-data">
             <h1 class="d-block mb-4" data-aos="fade-up" data-aos-delay="200" style="font-family:Segoe UI Symbol;">Kullanıcı Listele</h1>
-            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300" style="font-family:Segoe UI Symbol;">Kullanıcıları ve Sahip Oldukları
-              Kitapları Listelemek İçin Butona Tıklayın</span>
+            <span class="d-block mb-5 caption" data-aos="fade-up" data-aos-delay="300" style="font-family:Segoe UI Symbol;">Kullanıcıları Sahip Oldukları
+              Kitaplarıyla Listelemek İçin Butona Tıklayın</span>
             <button class="btn-custom" data-aos="fade-up" data-aos-delay="400" id="submitButton"
               type="submit"><span style="font-family:Segoe UI Symbol;">Kullanıcı Listele</span></button>
           </form>
@@ -169,6 +169,7 @@
         document.body.style.cursor = 'wait';
       }
       xhr.onload = function () {
+        document.body.style.cursor = 'default';
         let result = JSON.parse(this.responseText);
         if (result == "0") {
           alert("Sistem tarihini değiştirirken bir şeyler ters gitti!");

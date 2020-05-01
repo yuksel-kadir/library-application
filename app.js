@@ -265,6 +265,7 @@ app.post('/admin', (req, res) => {
 			res.json(errorCode);
 		} else {
 			console.log("Resim dosyası başarıyla upload edildi!");
+			console.log("Resim üzerinden ISBN okunuyor...");
 			await readImageAndUploadBookInfo(imageAddress, bookName);
 			console.log("ERRORCODE: " + errorCode);
 			res.json(errorCode);
@@ -502,7 +503,8 @@ async function getTextFromImage(address) {
 		}
 	}
 	let text2 = temporaryText[searchIndex].replace("ISBN ", "");
-	temporaryText = text2.replace(/-/g, "");
+	//temporaryText = text2.replace(/-/g, "");
+	temporaryText = text2.replace(/[a-zA-Z/-]/g, "");
 	await worker.terminate()
 
 	return temporaryText;
