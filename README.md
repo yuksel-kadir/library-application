@@ -25,4 +25,7 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 
 ## Ekran Görüntüleri
 ![loginPage](ss/login.png)
-
+<br>
+![userPage](ss/user.png)
+<br>
+![admiPage](ss/admin.png)
