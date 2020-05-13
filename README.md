@@ -23,6 +23,9 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 - [tesseract.js](https://github.com/naptha/tesseract.js#installation)
 - [nodemon](https://www.npmjs.com/package/nodemon)
 
+## Proje Dökümanı
+[Döküman](https://www.dropbox.com/s/16o1yfhsh96erup/YazlabII-Proje1.pdf?dl=0)
+
 ## Ekran Görüntüleri
 ![loginPage](ss/login.png)
 <br>
