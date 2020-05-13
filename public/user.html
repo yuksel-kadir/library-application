@@ -166,7 +166,7 @@
     //Book Search
     document.getElementById('userSearch').addEventListener('submit', getBookInfo);
     function getBookInfo(e){
-      e.preventDefault();
+        e.preventDefault();
         let bookInfo = document.getElementById("bookSearch").value.toLowerCase();
         let param = 'queryvar='+bookInfo;
         bookInfo.value = "";
