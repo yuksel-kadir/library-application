@@ -23,3 +23,6 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 - [tesseract.js](https://github.com/naptha/tesseract.js#installation)
 - [nodemon](https://www.npmjs.com/package/nodemon)
 
+## Ekran Görüntüleri
+![Login Sayfası](https://imgyukle.com/i/rMtijR)
+
