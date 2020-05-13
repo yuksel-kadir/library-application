@@ -17,9 +17,9 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 > Proje Nodejs ile Mongodb, HTML, CSS kullanılarak yazıldı.
 
 ## Projede Kullanılan Paketler
-- express
-- express-fileupload
-- mongoose
-- tesseract.js
-- nodemon
+- [express]
+- [express-fileupload](https://www.npmjs.com/package/express-fileupload)
+- [mongoose](https://mongoosejs.com)
+- [tesseract.js](https://github.com/naptha/tesseract.js#installation)
+- [nodemon](https://www.npmjs.com/package/nodemon)
 
