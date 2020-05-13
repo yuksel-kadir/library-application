@@ -24,5 +24,5 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 - [nodemon](https://www.npmjs.com/package/nodemon)
 
 ## Ekran Görüntüleri
-<img src="https://imgyukle.com/i/rMtijR" height="1080">
+![loginPage](ss/login.png)
 
