@@ -14,7 +14,7 @@ Localhostta çalışan, ISBN numarasını resimden okuyabilen, veri tabanına ki
 - Kitap adı veya ISBN'e göre kitabın kullanıcı envanterine eklenmesi.
 - Kitabın ISBN kodunun bulunduğu fotoğrafı sisteme yükleyerek, daha önceden alınan kitabın iade edilmesi.
 
-Proje Nodejs ile Mongodb, HTML, CSS kullanılarak yazıldı.
+> Proje Nodejs ile Mongodb, HTML, CSS kullanılarak yazıldı.
 
 ## Projede Kullanılan Paketler
 - express
