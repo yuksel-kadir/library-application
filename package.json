@@ -19,7 +19,7 @@
   "dependencies": {
     "add": "^2.0.6",
     "express": "^4.17.1",
-    "express-fileupload": "^1.1.6",
+    "express-fileupload": "^1.1.9",
     "mongoose": "^5.9.4",
     "tesseract.js": "^2.1.1",
     "yarn": "^1.22.4"
